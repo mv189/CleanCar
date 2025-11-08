@@ -78,7 +78,9 @@ una vez dentro del backend: node server.js
 
 Accede desde el navegador:
 Login: http://localhost:3000/
+
 Panel Admin: http://localhost:3000/admin
+
 Panel Secretario: http://localhost:3000/secretario
 
 📊 Funcionalidades clave
@@ -98,4 +100,5 @@ HTML5 / CSS3 / JS	Frontend tradicional con vistas separadas
 
 Jean carlos campo y Maria victoria carabali 
 Desarrolladores backend y frontend— Proyecto académico y empresarial
+
 📍 Colombia
