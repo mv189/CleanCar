@@ -1,0 +1,251 @@
+/* Estilos específicos para el módulo de registro */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modal styles */
+.modal-backdrop {
+    backdrop-filter: blur(4px);
+}
+
+/* OCR Processing animation */
+.ocr-processing {
+    background: #dbeafe;
+}
+
+.ocr-processing .animate-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Service item styles */
+.service-item {
+    transition: all 0.2s ease;
+    border: 1px solid #e5e7eb;
+}
+
+.service-item:hover {
+    background: #f9fafb;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-color: #d1d5db;
+}
+
+/* Checkbox styles personalizados */
+.service-item input[type="checkbox"] {
+    appearance: none;
+    background-color: #fff;
+    border: 2px solid #d1d5db;
+    border-radius: 4px;
+    width: 18px;
+    height: 18px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.service-item input[type="checkbox"]:hover {
+    border-color: #3b82f6;
+}
+
+.service-item input[type="checkbox"]:checked {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.service-item input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 0px;
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+/* Estilos para labels de servicios */
+.service-item label {
+    font-weight: 500;
+    color: #111827;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Estilos para precios */
+.service-item .text-green-600 {
+    color: #059669;
+    font-weight: 600;
+}
+
+.service-item .text-gray-500 {
+    color: #6b7280;
+    font-size: 0.875rem;
+}
+
+/* Animación para servicios seleccionados */
+.service-item input[type="checkbox"]:checked + label {
+    color: #3b82f6;
+}
+
+/* Form validation styles */
+.input-error {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.input-success {
+    border-color: #10b981 !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Button animations */
+button {
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* OCR Result styles */
+.ocr-result {
+    font-family: 'Courier New', monospace;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+/* Payment summary styles */
+.payment-summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.payment-summary-item:last-child {
+    border-bottom: none;
+    font-weight: bold;
+    color: #059669;
+}
+
+/* Total section styling */
+#total {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #059669;
+}
+
+/* Discount input styling */
+#discount {
+    border-color: #d1d5db;
+    transition: border-color 0.15s ease-in-out;
+}
+
+#discount:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Services container spacing */
+#servicesContainer {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+/* Scrollbar personalizada para servicios */
+#servicesContainer::-webkit-scrollbar {
+    width: 4px;
+}
+
+#servicesContainer::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 2px;
+}
+
+#servicesContainer::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 2px;
+}
+
+#servicesContainer::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .grid-cols-1.lg\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-item {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .space-y-6 > div:first-child {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .space-y-6 > div:first-child > div {
+        width: 100%;
+    }
+    
+    .service-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .service-item .text-right {
+        text-align: left;
+        align-self: flex-start;
+    }
+}
+
+/* Estados adicionales para elementos interactivos */
+.service-item.selected {
+    background-color: #eff6ff;
+    border-color: #3b82f6;
+}
+
+/* Animaciones suaves para cambios de estado */
+.service-item input[type="checkbox"],
+.service-item label,
+.service-item .text-green-600 {
+    transition: all 0.2s ease;
+}
+
+/* Focus states mejorados */
+.service-item:focus-within {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}

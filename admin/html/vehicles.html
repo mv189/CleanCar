@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Vehículos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.js" defer></script>
+    <link rel="stylesheet" href="../css/vehicles.css">
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-blue-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Historial de Vehículos</h1>
+                    <p class="text-gray-600">Gestiona el historial completo de servicios por vehículo</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <div class="relative flex-1 md:flex-none">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                        <input 
+                            type="text" 
+                            placeholder="Buscar por placa, propietario o modelo..." 
+                            class="pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-full md:w-80 transition-colors"
+                            id="plate-search"
+                        />
+                    </div>
+                    <button class="px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 whitespace-nowrap" id="filter-btn">
+                        <i data-lucide="filter" class="w-4 h-4"></i>
+                        Filtros
+                    </button>
+                    <button class="px-4 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2 whitespace-nowrap" id="add-vehicle-btn">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        Agregar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards - Solo 2 tarjetas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8" id="stats-cards">
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-blue-100 rounded-lg">
+                        <i data-lucide="car" class="w-5 h-5 text-blue-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Total Vehículos</p>
+                        <p class="text-xl font-bold text-gray-900" id="total-vehicles">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-200">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-green-100 rounded-lg">
+                        <i data-lucide="activity" class="w-5 h-5 text-green-600"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Servicios Total</p>
+                        <p class="text-xl font-bold text-gray-900" id="total-services">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Table -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <h3 class="text-lg font-semibold text-gray-900">Vehículos Registrados</h3>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-sm rounded-full" id="vehicles-count">0 vehículos</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors" title="Actualizar">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        </button>
+                        <button class="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors" title="Exportar">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b border-gray-200">
+                        <tr>
+                            <th class="text-left py-3 px-6 font-semibold text-gray-700 w-32">Placa</th>
+                            <th class="text-left py-3 px-6 font-semibold text-gray-700">Vehículo</th>
+                            <th class="text-left py-3 px-6 font-semibold text-gray-700">Propietario</th>
+                            <th class="text-center py-3 px-6 font-semibold text-gray-700 w-24">Visitas</th>
+                            <th class="text-left py-3 px-6 font-semibold text-gray-700 w-32">Última Visita</th>
+                            <th class="text-right py-3 px-6 font-semibold text-gray-700 w-32">Total Gastado</th>
+                            <th class="text-center py-3 px-6 font-semibold text-gray-700 w-32">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vehicles-tbody" class="divide-y divide-gray-100">
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Empty State -->
+            <div id="empty-state" class="text-center py-12 hidden">
+                <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="car" class="w-8 h-8 text-gray-400"></i>
+                </div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No hay vehículos registrados</h3>
+                <p class="text-gray-600 mb-6">Comienza agregando tu primer vehículo al sistema</p>
+                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    Agregar Vehículo
+                </button>
+            </div>
+        </div>
+
+        <!-- Historial Detallado Modal -->
+        <div id="history-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden">
+                <div class="flex items-center justify-between p-6 border-b border-gray-200">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900" id="modal-title">Historial Detallado</h3>
+                        <p class="text-gray-600" id="modal-subtitle">Información del vehículo</p>
+                    </div>
+                    <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors" onclick="closeHistoryModal()">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                
+                <div class="p-6 max-h-[70vh] overflow-y-auto">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="text-left py-3 px-4 font-semibold text-gray-700">Fecha</th>
+                                    <th class="text-left py-3 px-4 font-semibold text-gray-700">Servicios</th>
+                                    <th class="text-right py-3 px-4 font-semibold text-gray-700">Total</th>
+                                    <th class="text-left py-3 px-4 font-semibold text-gray-700">Atendido por</th>
+                                    <th class="text-center py-3 px-4 font-semibold text-gray-700">Estado</th>
+                                    <th class="text-center py-3 px-4 font-semibold text-gray-700">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="modal-history-tbody" class="divide-y divide-gray-100">
+                                <!-- Se llenará dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/vehicles.js"></script>
+    <script src="../js/config.js"></script>
+
+</body>
+</html>

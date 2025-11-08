@@ -1,0 +1,510 @@
+/* css/vehicles.css - Nuevo Diseño */
+
+/* Variables CSS personalizadas */
+:root {
+    --primary-blue: #2563eb;
+    --primary-blue-dark: #1d4ed8;
+    --primary-blue-light: #dbeafe;
+    --success-green: #10b981;
+    --success-green-light: #dcfce7;
+    --warning-yellow: #f59e0b;
+    --warning-yellow-light: #fef3c7;
+    --danger-red: #ef4444;
+    --danger-red-light: #fecaca;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Reset y estilos base */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--gray-700);
+}
+
+/* Animaciones personalizadas */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Estilos de la tabla principal */
+.vehicle-row {
+    transition: all 0.2s ease;
+    animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.vehicle-row:hover {
+    background-color: var(--gray-50);
+    transform: translateX(2px);
+}
+
+.vehicle-row:nth-child(1) { animation-delay: 0.1s; }
+.vehicle-row:nth-child(2) { animation-delay: 0.15s; }
+.vehicle-row:nth-child(3) { animation-delay: 0.2s; }
+.vehicle-row:nth-child(4) { animation-delay: 0.25s; }
+.vehicle-row:nth-child(5) { animation-delay: 0.3s; }
+
+/* Estilos de la placa */
+.plate-badge {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s ease;
+}
+
+.vehicle-row:hover .plate-badge {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+/* Badges de visitas */
+.visits-badge {
+    background-color: var(--success-green-light);
+    color: var(--success-green);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.visits-badge.high-visits {
+    background-color: var(--warning-yellow-light);
+    color: var(--warning-yellow);
+}
+
+.visits-badge.very-high-visits {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+}
+
+/* Avatar del vehículo */
+.vehicle-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: linear-gradient(135deg, var(--primary-blue-light), #bfdbfe);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.vehicle-row:hover .vehicle-avatar {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: var(--shadow-md);
+}
+
+.vehicle-row:hover .vehicle-avatar i {
+    color: white !important;
+}
+
+/* Botones de acción */
+.action-btn {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+}
+
+.action-btn:hover::before {
+    left: 100%;
+}
+
+.action-btn-primary {
+    background-color: var(--primary-blue-light);
+    color: var(--primary-blue);
+}
+
+.action-btn-primary:hover {
+    background-color: var(--primary-blue);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.action-btn-secondary {
+    background-color: var(--gray-100);
+    color: var(--gray-600);
+}
+
+.action-btn-secondary:hover {
+    background-color: var(--gray-200);
+    color: var(--gray-800);
+    transform: translateY(-2px);
+}
+
+.action-btn-danger {
+    background-color: var(--danger-red-light);
+    color: var(--danger-red);
+}
+
+.action-btn-danger:hover {
+    background-color: var(--danger-red);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Modal de historial */
+#history-modal {
+    backdrop-filter: blur(4px);
+    animation: fadeInScale 0.3s ease-out;
+}
+
+#history-modal > div {
+    animation: slideInLeft 0.4s ease-out;
+    box-shadow: var(--shadow-lg);
+}
+
+/* Tabla del modal */
+.modal-table-row {
+    transition: all 0.2s ease;
+}
+
+.modal-table-row:hover {
+    background-color: var(--gray-50);
+    transform: translateX(4px);
+}
+
+/* Tags de servicios */
+.service-tag {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    background: linear-gradient(135deg, var(--primary-blue-light), #bfdbfe);
+    color: var(--primary-blue);
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin: 0.125rem;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.service-tag:hover {
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-dark));
+    color: white;
+    transform: scale(1.05);
+    border-color: var(--primary-blue-dark);
+}
+
+/* Estados de servicio */
+.status-badge {
+    padding: 0.375rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    transition: all 0.2s ease;
+}
+
+.status-completed {
+    background: linear-gradient(135deg, var(--success-green-light), #a7f3d0);
+    color: var(--success-green);
+    border: 1px solid var(--success-green);
+}
+
+.status-pending {
+    background: linear-gradient(135deg, var(--warning-yellow-light), #fed7aa);
+    color: var(--warning-yellow);
+    border: 1px solid var(--warning-yellow);
+}
+
+.status-cancelled {
+    background: linear-gradient(135deg, var(--danger-red-light), #fca5a5);
+    color: var(--danger-red);
+    border: 1px solid var(--danger-red);
+}
+
+/* Cards de estadísticas */
+.stats-card {
+    transition: all 0.3s ease;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.stats-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+}
+
+.stats-card:nth-child(1) { animation-delay: 0.1s; }
+.stats-card:nth-child(2) { animation-delay: 0.2s; }
+.stats-card:nth-child(3) { animation-delay: 0.3s; }
+.stats-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Input de búsqueda mejorado */
+.search-input {
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    transform: scale(1.01);
+}
+
+/* Loading states */
+.loading-spinner {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--gray-200);
+    border-top: 2px solid var(--primary-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Notificaciones toast mejoradas */
+.toast-notification {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-lg);
+    padding: 1rem 1.25rem;
+    z-index: 60;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-left: 4px solid var(--primary-blue);
+    max-width: 400px;
+}
+
+.toast-notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-success {
+    border-left-color: var(--success-green);
+}
+
+.toast-error {
+    border-left-color: var(--danger-red);
+}
+
+.toast-info {
+    border-left-color: var(--primary-blue);
+}
+
+/* Indicadores de actividad */
+.activity-indicator {
+    position: relative;
+}
+
+.activity-indicator::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: var(--success-green);
+    border: 2px solid white;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+/* Responsive design mejorado */
+@media (max-width: 1024px) {
+    .stats-card {
+        animation-delay: 0s !important;
+    }
+    
+    .vehicle-row {
+        animation-delay: 0s !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #history-modal > div {
+        margin: 1rem;
+        max-height: calc(100vh - 2rem);
+    }
+    
+    .action-btn {
+        padding: 0.375rem;
+    }
+    
+    .plate-badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    table {
+        font-size: 0.875rem;
+    }
+    
+    th, td {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .vehicle-avatar {
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    .stats-card {
+        padding: 0.75rem;
+    }
+}
+
+/* Estados focus mejorados para accesibilidad */
+.action-btn:focus,
+input:focus,
+button:focus {
+    outline: 2px solid var(--primary-blue);
+    outline-offset: 2px;
+}
+
+/* Efectos de glassmorphism */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Gradientes de fondo */
+.gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-bg-subtle {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Transiciones suaves para cambios de contenido */
+.fade-transition {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Estilos para elementos vacíos */
+.empty-state {
+    animation: fadeInScale 0.6s ease-out;
+}
+
+/* Mejoras en micro-interacciones */
+.interactive:hover {
+    transform: translateY(-1px);
+}
+
+.interactive:active {
+    transform: translateY(0);
+}
+
+/* Sombras dinámicas */
+.dynamic-shadow {
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.3s ease;
+}
+
+.dynamic-shadow:hover {
+    box-shadow: var(--shadow-lg);
+}

@@ -1,0 +1,211 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #b8b8b8 0%, #d4d4d4 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 360px;
+}
+
+.login-card {
+    background: #d1d1d1;
+    border-radius: 40px;
+    padding: 40px 32px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+}
+
+.logo-container {
+    margin-bottom: 24px;
+}
+
+.logo-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #4c9fef 0%, #3b82f6 100%);
+    border-radius: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+    font-size: 44px;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #4a4a4a;
+    margin-bottom: 32px;
+    font-weight: 400;
+}
+
+/* Role Tabs */
+.role-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    background: transparent;
+    padding: 0;
+}
+
+.role-tab {
+    flex: 1;
+    padding: 12px 24px;
+    border: none;
+    background: transparent;
+    color: #1a1a1a;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.role-tab:first-child {
+    border-radius: 12px 0 0 12px;
+}
+
+.role-tab:last-child {
+    border-radius: 0 12px 12px 0;
+}
+
+.role-tab.active {
+    background: #4c9fef;
+    color: #1a1a1a;
+    box-shadow: 0 4px 12px rgba(76, 159, 239, 0.4);
+}
+
+.role-tab:not(.active):hover {
+    background: rgba(76, 159, 239, 0.2);
+}
+
+/* Form Styles */
+.login-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: #3a3a3a;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 15px;
+    background: #ffffff;
+    color: #1a1a1a;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-input:focus {
+    outline: none;
+    box-shadow: 0 4px 12px rgba(76, 159, 239, 0.3);
+    transform: translateY(-1px);
+}
+
+.form-input::placeholder {
+    color: #999;
+}
+
+/* Login Button */
+.btn-login {
+    width: 70%;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 20px;
+    background: #4c9fef;
+    color: #1a1a1a;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 12px;
+    box-shadow: 0 6px 16px rgba(76, 159, 239, 0.4);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-login:hover {
+    background: #3b8dd8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(76, 159, 239, 0.5);
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .login-card {
+        padding: 40px 28px;
+        border-radius: 35px;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+    }
+
+    .role-tab {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    .logo-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 42px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-card {
+    animation: fadeIn 0.5s ease-out;
+}

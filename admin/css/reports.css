@@ -1,0 +1,147 @@
+/* reports.css */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f9fafb;
+    margin: 0;
+    padding: 0;
+}
+
+.reports-container {
+    padding: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header */
+.reports-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.reports-header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #111827;
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.month-filter {
+    padding: 8px 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    color: #374151;
+    outline: none;
+}
+
+.month-filter:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.export-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: #059669;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.export-btn:hover {
+    background-color: #047857;
+}
+
+/* Financial Summary */
+.financial-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.summary-card {
+    border-radius: 12px;
+    padding: 24px;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.summary-card.green {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.card-header h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.amount {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0 0 8px 0;
+}
+
+.change {
+    font-size: 14px;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.change.positive {
+    opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .reports-container {
+        padding: 16px;
+    }
+    
+    .reports-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    
+    .reports-header h1 {
+        font-size: 24px;
+    }
+    
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .financial-summary {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .amount {
+        font-size: 28px;
+    }
+}

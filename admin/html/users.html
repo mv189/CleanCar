@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Lavadores - AutoLavado</title>
+    <link rel="stylesheet" href="../css/users.css">
+</head>
+<body>
+    <div class="washers-container">
+        <div class="washers-header">
+            <h1>Gestión de Lavadores</h1>
+            <button class="new-washer-btn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <line x1="19" y1="8" x2="19" y2="14"/>
+                    <line x1="22" y1="11" x2="16" y2="11"/>
+                </svg>
+                Nuevo Lavador
+            </button>
+        </div>
+
+        <div class="washers-table-container">
+            <div class="table-filters">
+                <div class="search-container">
+                    <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" placeholder="Buscar lavadores..." class="search-input">
+                </div>
+                <select class="status-filter">
+                    <option>Todos los estados</option>
+                    <option>Activo</option>
+                    <option>Inactivo</option>
+                </select>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="washers-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Completo</th>
+                            <th>Estado</th>
+                            <th>Vehículos Lavados</th>
+                            <th>Creado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="washersTableBody">
+                        <!-- Los datos se cargarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para crear/editar lavador -->
+    <div id="washerModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Nuevo Lavador</h2>
+                <button class="close-btn" onclick="closeWasherModal()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="washerForm">
+                <div class="form-group">
+                    <label for="washerName">Nombre Completo *</label>
+                    <input type="text" id="washerName" required placeholder="Ej: Juan Pérez García">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeWasherModal()">Cancelar</button>
+                    <button type="submit" class="btn-submit">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de confirmación -->
+    <div id="confirmModal" class="confirm-modal hidden">
+        <div class="confirm-box">
+            <h3 id="confirmTitle">¿Estás seguro?</h3>
+            <p id="confirmMessage">Esta acción no se puede deshacer.</p>
+            <div class="confirm-actions">
+                <button id="cancelConfirm" class="btn-cancel-confirm">Cancelar</button>
+                <button id="acceptConfirm" class="btn-accept-confirm">Sí, continuar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/users.js"></script>
+</body>
+</html>

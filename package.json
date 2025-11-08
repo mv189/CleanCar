@@ -1,0 +1,23 @@
+{
+  "name": "cleancar",
+  "version": "1.0.0",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "admin": "npx serve admin"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "CleanCar - Lavadero multiplataforma con Node.js, MySQL y Express",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mysql2": "^3.14.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "serve": "^14.2.3"
+  }
+}

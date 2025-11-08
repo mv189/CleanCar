@@ -1,0 +1,247 @@
+/* Estilos específicos para el módulo de historial */
+.vehicle-card {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.vehicle-card:hover {
+    background: #f9fafb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Animaciones para los filtros */
+.filter-container {
+    transition: all 0.3s ease;
+}
+
+.filter-container.expanded {
+    max-height: 200px;
+    opacity: 1;
+}
+
+.filter-container.collapsed {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+/* Service tags */
+.service-tag {
+    display: inline-block;
+    padding: 4px 8px;
+    background: #dbeafe;
+    color: #1e40af;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin: 2px;
+    transition: all 0.2s ease;
+}
+
+.service-tag:hover {
+    background: #bfdbfe;
+    transform: scale(1.05);
+}
+
+/* Visit counter badge */
+.visit-badge {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Stats cards animation */
+.stat-card {
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Search input focus effects */
+.search-input:focus {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Loading animation */
+.loading-spinner {
+    border: 2px solid #f3f4f6;
+    border-top: 2px solid #3b82f6;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Modal backdrop blur */
+.modal-backdrop {
+    backdrop-filter: blur(4px);
+}
+
+/* Vehicle details grid */
+.detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.detail-item {
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border-left: 4px solid #3b82f6;
+}
+
+.detail-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 4px;
+}
+
+.detail-value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+/* History timeline */
+.timeline {
+    position: relative;
+    margin: 2rem 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #3b82f6, #06b6d4);
+}
+
+.timeline-item {
+    position: relative;
+    margin-left: 50px;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -41px;
+    top: 20px;
+    width: 12px;
+    height: 12px;
+    background: #3b82f6;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 3px #3b82f6;
+}
+
+/* No results animation */
+.no-results-enter {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Search results animation */
+.search-result-enter {
+    animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Filter tags */
+.filter-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: #ede9fe;
+    color: #6b21a8;
+    border-radius: 16px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin: 2px;
+}
+
+.filter-tag button {
+    background: none;
+    border: none;
+    color: #6b21a8;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .flex.gap-4.mb-6 {
+        flex-direction: column;
+    }
+    
+    .timeline-item {
+        margin-left: 30px;
+    }
+    
+    .timeline-item::before {
+        left: -31px;
+    }
+    
+    .timeline::before {
+        left: 15px;
+    }
+}
+
+@media (max-width: 640px) {
+    .grid.grid-cols-1.md\:grid-cols-3 {
+        grid-template-columns: 1fr;
+    }
+}

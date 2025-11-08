@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cierre de Caja Diario</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css1/cierre.css">
+</head>
+<body class="bg-gray-50">
+    <div class="space-y-6">
+        <div class="flex justify-between items-center">
+            <h1 class="text-3xl font-bold text-gray-900">Cierre de Caja Diario</h1>
+            <div class="flex gap-3">
+                <span id="currentDate" class="px-3 py-2 bg-blue-100 text-blue-800 rounded-lg font-medium">
+                    <!-- Se llena dinámicamente -->
+                </span>
+                <button onclick="printReport()" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6,9 6,2 18,2 18,9"/>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                        <rect x="6" y="14" width="12" height="8"/>
+                    </svg>
+                    Imprimir Reporte
+                </button>
+            </div>
+        </div>
+
+        <!-- Resumen del día -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="summary-card bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center gap-3 mb-3">
+                    <svg class="text-green-600" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="1" x2="12" y2="23"/>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                    </svg>
+                    <h3 class="font-semibold text-gray-700">Total Recaudado</h3>
+                </div>
+                <p id="totalRevenue" class="text-2xl font-bold text-gray-900">$0</p>
+            </div>
+
+            <div class="summary-card bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center gap-3 mb-3">
+                    <svg class="text-blue-600" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M8 21h8a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2Z"/>
+                        <path d="M16 3.5H8"/>
+                        <path d="M12 16v-1"/>
+                    </svg>
+                    <h3 class="font-semibold text-gray-700">Vehículos Atendidos</h3>
+                </div>
+                <p id="totalVehicles" class="text-2xl font-bold text-gray-900">0</p>
+            </div>
+
+            <div class="summary-card bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center gap-3 mb-3">
+                    <svg class="text-green-600" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22,4 12,14.01 9,11.01"/>
+                    </svg>
+                    <h3 class="font-semibold text-gray-700">Servicios Completados</h3>
+                </div>
+                <p id="completedServices" class="text-2xl font-bold text-gray-900">0</p>
+            </div>
+
+            <div class="summary-card bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center gap-3 mb-3">
+                    <svg class="text-orange-600" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12,6 12,12 16,14"/>
+                    </svg>
+                    <h3 class="font-semibold text-gray-700">Promedio por Servicio</h3>
+                </div>
+                <p id="averageService" class="text-2xl font-bold text-gray-900">$0</p>
+            </div>
+        </div>
+
+        <!-- Detalle de transacciones -->
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-semibold text-gray-900">Detalle de Transacciones del Día</h3>
+                    <div class="flex gap-2">
+                        <button onclick="filterTransactions('all')" id="filter-all" class="filter-btn px-3 py-1 text-sm rounded-full border border-gray-300 hover:bg-gray-50 active">
+                            Todas
+                        </button>
+                        <button onclick="filterTransactions('completed')" id="filter-completed" class="filter-btn px-3 py-1 text-sm rounded-full border border-gray-300 hover:bg-gray-50">
+                            Completadas
+                        </button>
+                        <button onclick="filterTransactions('pending')" id="filter-pending" class="filter-btn px-3 py-1 text-sm rounded-full border border-gray-300 hover:bg-gray-50">
+                            En Proceso
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full" id="transactionsTable">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="text-left py-4 px-6 font-semibold text-gray-700">Hora</th>
+                            <th class="text-left py-4 px-6 font-semibold text-gray-700">Placa</th>
+                            <th class="text-left py-4 px-6 font-semibold text-gray-700">Cliente</th>
+                            <th class="text-left py-4 px-6 font-semibold text-gray-700">Servicios</th>
+                            <th class="text-left py-4 px-6 font-semibold text-gray-700">Método de Pago</th>
+                            <th class="text-left py-4 px-6 font-semibold text-gray-700">Total</th>
+                            <th class="text-center py-4 px-6 font-semibold text-gray-700">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transactionsBody">
+                        <!-- Se llena dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Resumen por método de pago -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <h3 class="text-lg font-semibold mb-4">Resumen por Método de Pago</h3>
+                <div id="paymentMethodSummary" class="space-y-3">
+                    <!-- Se llena dinámicamente -->
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <h3 class="text-lg font-semibold mb-4">Total en Efectivo</h3>
+                <div class="text-center">
+                    <p id="cashTotal" class="text-3xl font-bold text-green-600">$0</p>
+                    <p id="cashTransactions" class="text-sm text-gray-600 mt-1">0 transacciones</p>
+                </div>
+                
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <h4 class="font-medium text-gray-700 mb-2">Denominaciones (simulado)</h4>
+                    <div class="grid grid-cols-2 gap-2 text-sm">
+                        <div class="flex justify-between">
+                            <span>$50,000:</span>
+                            <span id="bill-50000">0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>$20,000:</span>
+                            <span id="bill-20000">0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>$10,000:</span>
+                            <span id="bill-10000">0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>$5,000:</span>
+                            <span id="bill-5000">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráfico de servicios más populares -->
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <h3 class="text-lg font-semibold mb-4">Servicios Más Populares del Día</h3>
+            <div id="popularServices" class="space-y-3">
+                <!-- Se llena dinámicamente -->
+            </div>
+        </div>
+
+        <!-- Nota  -->
+        <div class="bg-orange-50 border border-orange-200 rounded-xl p-6">
+            <div class="flex items-start gap-3">
+                <svg class="text-orange-600 mt-1" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <line x1="12" y1="8" x2="12" y2="12"/>
+                    <line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <div>
+                    <h4 class="font-semibold text-orange-800 mb-1">Nota Importante</h4>
+                    <p class="text-orange-700">
+                        Este reporte es solo para consulta. Las modificaciones deben ser realizadas por el administrador del sistema.
+                        Verifique que todos los pagos en efectivo estén correctamente contabilizados antes del cierre.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js1/cierre.js"></script>
+</body>
+</html>

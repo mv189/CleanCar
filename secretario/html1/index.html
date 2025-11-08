@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean car - Panel Secretario</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css1/styles.css">
+
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      connect-src 'self' http://localhost:3000;
+      img-src 'self' data: blob:;
+      style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com;
+      font-src  'self' data: https://cdnjs.cloudflare.com https://fonts.gstatic.com;
+      script-src 'self' 'unsafe-inline';
+    ">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Clean Car</h1>
+                        <p>Panel Secretario</p>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="nav-button active" data-section="register">
+                    <i class="fas fa-plus"></i>
+                    <span>Registrar Vehículo</span>
+                </button>
+                <button class="nav-button" data-section="search">
+                    <i class="fas fa-search"></i>
+                    <span>Consultar Historial</span>
+                </button>
+                <button class="nav-button" data-section="reports">
+                    <i class="fas fa-file-text"></i>
+                    <span>Cierre de Caja</span>
+                    <span class="nav-count">3</span>
+                </button>
+            </nav>
+
+            <!-- User info -->
+            <div class="user-info">
+                <div class="user-avatar">S</div>
+                <div class="user-details">
+                    <p class="user-name">Secretario</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main  -->
+        <div class="main-content">
+            <div class="content-wrapper" id="contentWrapper">
+                <!-- El contenido se cargará dinámicamente aquí -->
+            </div>
+        </div>
+    </div>
+
+    <script src="../js1/main.js"></script>
+</body>
+</html>
