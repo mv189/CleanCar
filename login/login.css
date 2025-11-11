@@ -54,7 +54,7 @@ body {
 
 .subtitle {
     font-size: 14px;
-    color: #4a4a4a;
+    color: #000000;
     margin-bottom: 32px;
     font-weight: 400;
 }
@@ -111,7 +111,7 @@ body {
 .form-group label {
     display: block;
     font-size: 14px;
-    color: #3a3a3a;
+    color: #000000;
     margin-bottom: 8px;
     font-weight: 500;
 }

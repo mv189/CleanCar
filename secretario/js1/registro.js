@@ -150,7 +150,7 @@ async function loadServices() {
 
 async function loadWashers() {
   try {
-    const res = await fetch(`${API_BASE}/washers/all`);
+    const res = await fetch(`${API_BASE}/washers`);
     if (!res.ok) throw new Error('Error al cargar lavadores');
     washers = await res.json();
   } catch (error) {
