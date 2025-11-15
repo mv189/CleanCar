@@ -382,55 +382,7 @@ function displayVehicleDetails(vehicle, detailedHistory) {
         }
       </div>
     </div>
-    
-    <!-- Historial detallado -->
-    <div>
-      <h4 class="font-semibold text-gray-800 mb-4">Historial de Transacciones</h4>
-      ${detailedHistory.length > 0 ? `
-        <div class="space-y-4 max-h-64 overflow-y-auto">
-          ${detailedHistory.map(transaction => `
-            <div class="border border-gray-200 rounded-lg p-4">
-              <div class="flex justify-between items-start mb-2">
-                <h5 class="font-medium text-gray-900">${formatDate(transaction.created_at)}</h5>
-                <span class="text-sm text-gray-500">${formatTime(transaction.created_at)}</span>
-              </div>
-              <div class="flex flex-wrap gap-1 mb-2">
-                ${transaction.services ? transaction.services.map(service => 
-                  `<span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">${service}</span>`
-                ).join('') : ''}
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-sm text-gray-600">Estado: ${transaction.status}</span>
-                <span class="font-semibold text-green-600">${AppData.formatCurrency(transaction.total)}</span>
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      ` : `
-        <div class="text-center py-8 text-gray-500">
-          <svg class="text-gray-300 mx-auto mb-3" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 1v6m0 6v6"/>
-            <path d="M1 12h6m6 0h6"/>
-          </svg>
-          <p>No hay transacciones registradas para este vehículo</p>
-        </div>
-      `}
-    </div>
-    
-    <!-- Estadísticas del vehículo -->
-    ${vehicle.totalVisits > 0 ? `
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-        <div class="p-4 bg-blue-50 rounded-lg">
-          <h5 class="font-medium text-blue-800 mb-1">Total Gastado</h5>
-          <p class="text-2xl font-bold text-blue-900">${AppData.formatCurrency(vehicle.totalSpent || 0)}</p>
-        </div>
-        <div class="p-4 bg-green-50 rounded-lg">
-          <h5 class="font-medium text-green-800 mb-1">Promedio por Visita</h5>
-          <p class="text-2xl font-bold text-green-900">${AppData.formatCurrency(vehicle.totalVisits > 0 ? Math.round((vehicle.totalSpent || 0) / vehicle.totalVisits) : 0)}</p>
-        </div>
-      </div>
-    ` : ''}
+  
   `;
 }
 

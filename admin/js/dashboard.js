@@ -1,7 +1,7 @@
-var API_BASE = window.API_BASE || 'http://localhost:3000/api';
-
+var API_BASE = 'http://127.0.0.1:3000/api';
 document.addEventListener('DOMContentLoaded', function() {
-    // Función para cargar estadísticas del dashboard
+
+    // 1. Cargar estadísticas del día
     async function cargarDashboard() {
         try {
             const res = await fetch(`${API_BASE}/stats/dashboard`);
@@ -24,73 +24,85 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Llamar al cargar y cada 10 segundos
     cargarDashboard();
     setInterval(cargarDashboard, 10000);
 
-    // Datos para las gráficas (datos estáticos como ejemplo)
-    const dailyRevenue = [
-        { day: 'Lun', revenue: 450000, services: 18 },
-        { day: 'Mar', revenue: 520000, services: 22 },
-        { day: 'Mié', revenue: 380000, services: 15 },
-        { day: 'Jue', revenue: 680000, services: 28 },
-        { day: 'Vie', revenue: 720000, services: 32 },
-        { day: 'Sáb', revenue: 890000, services: 42 },
-        { day: 'Dom', revenue: 650000, services: 28 }
-    ];
+    // 2. Cargar gráfica semanal REAL
 
-    // Gráfica de ingresos semanales (Area Chart)
-    const revenueCtx = document.getElementById('revenueChart');
-    if (revenueCtx) {
-        new Chart(revenueCtx, {
-            type: 'line',
-            data: {
-                labels: dailyRevenue.map(d => d.day),
-                datasets: [{
-                    label: 'Ingresos',
-                    data: dailyRevenue.map(d => d.revenue),
-                    borderColor: '#3B82F6',
-                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value.toLocaleString('es-CO');
+    async function cargarGraficoSemanal() {
+        try {
+            const res = await fetch(`${API_BASE}/stats/weekly`);
+            const weekData = await res.json();
+
+            // Orden de días lunes → domingo
+            const daysOfWeek = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+
+            // Si no hubo ventas un día → queda en 0
+            const chartData = daysOfWeek.map(day => weekData[day] || 0);
+
+            const revenueCtx = document.getElementById('revenueChart');
+            if (revenueCtx) {
+                new Chart(revenueCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: daysOfWeek,
+                        datasets: [{
+                            label: 'Ingresos',
+                            data: chartData,
+                            borderColor: '#3B82F6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return 'Ingresos: $' + context.raw.toLocaleString('es-CO');
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '$' + value.toLocaleString('es-CO');
+                                    }
+                                }
                             }
                         }
                     }
-                }
+                });
             }
-        });
+
+        } catch (err) {
+            console.error('Error cargando gráfico semanal:', err);
+        }
     }
 
-    // Event listeners para filtros
+    // ← Llamar al cargar
+    cargarGraficoSemanal();
+
+
+    // ===============================
+    // 3. Filtros (a futuro)
+    // ===============================
     const timeFilter = document.querySelector('.time-filter');
     if (timeFilter) {
         timeFilter.addEventListener('change', function() {
-            console.log('Filtro de tiempo cambiado:', this.value);
-            // Aquí se actualizarían las gráficas según el filtro seleccionado
+            console.log('Filtro cambiado:', this.value);
         });
     }
-
-    // Event listener para botón de exportar
+    // 4. Exportar datos (no implementado)
     const exportBtn = document.querySelector('.export-btn');
     if (exportBtn) {
         exportBtn.addEventListener('click', function() {
-            console.log('Exportando datos...');
             alert('Función de exportación no implementada en este demo');
         });
     }

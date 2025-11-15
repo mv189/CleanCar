@@ -183,6 +183,12 @@ body {
     color: #111827;
 }
 
+.chart-container {
+    height: 240px;
+    width: 100%;
+    position: relative;
+}
+
 /* Canvas styles */
 .chart-card canvas {
     width: 100% !important;
