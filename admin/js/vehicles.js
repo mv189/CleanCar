@@ -72,12 +72,16 @@ function setupEventListeners() {
         if (e.target.id === 'history-modal') {
             closeHistoryModal();
         }
+        if (e.target.id === 'edit-modal') {
+            closeEditModal();
+        }
     });
 
     // Atajos de teclado
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeHistoryModal();
+            closeEditModal();
         }
         if (e.key === '/' && !e.target.matches('input, textarea')) {
             e.preventDefault();
@@ -207,10 +211,10 @@ function createVehicleRow(vehicle, index) {
                 <button class="action-btn action-btn-primary" onclick="showVehicleHistory('${vehicle.plate}')" title="Ver historial completo">
                     <i data-lucide="history" class="w-4 h-4"></i>
                 </button>
-                <button class="action-btn action-btn-secondary" onclick="editVehicle('${vehicle.plate}')" title="Editar vehículo">
+                <button class="action-btn action-btn-secondary" onclick='editVehicle(${JSON.stringify(vehicle)})' title="Editar vehículo">
                     <i data-lucide="edit-3" class="w-4 h-4"></i>
                 </button>
-                <button class="action-btn action-btn-danger" onclick="deleteVehicle('${vehicle.plate}')" title="Anular vehículo">
+                <button class="action-btn action-btn-danger" onclick="deleteVehicle(${vehicle.id})" title="Anular vehículo">
                     <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
             </div>
@@ -263,17 +267,87 @@ function closeHistoryModal() {
     }
 }
 
-function editVehicle(plate) {
-    showNotification(`Editando vehículo ${plate}`, 'info');
-    // Aquí iría la lógica para abrir modal de edición
-    console.log(`Editando vehículo: ${plate}`);
+function closeEditModal() {
+    const modal = document.getElementById('edit-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+    }
 }
 
-function deleteVehicle(plate) {
-    if (confirm(`¿Está seguro de que desea anular el vehículo ${plate}?\n\nEsta acción no se puede deshacer.`)) {
-        showNotification(`Vehículo ${plate} anulado correctamente`, 'success');
-        // Aquí iría la lógica para eliminar el vehículo
-        console.log(`Eliminando vehículo: ${plate}`);
+// =============================
+// FUNCIÓN EDITAR REAL
+// =============================
+window.editVehicle = function (vehicle) {
+    // Abrimos modal
+    document.getElementById("editId").value = vehicle.id;
+    document.getElementById("editPlate").value = vehicle.plate;
+    document.getElementById("editOwner").value = vehicle.owner;
+    document.getElementById("editType").value = vehicle.type;
+    document.getElementById("editPhone").value = vehicle.phone || '';
+    document.getElementById("editWasher").value = vehicle.washer_id || '';
+
+    document.getElementById("edit-modal").classList.remove("hidden");
+    document.body.style.overflow = 'hidden';
+    
+    // Reinicializar iconos
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+};
+
+// =============================
+// FUNCIÓN GUARDAR EDICIÓN
+// =============================
+window.saveVehicleEdit = async function () {
+    const id = document.getElementById("editId").value;
+
+    const body = {
+        plate: document.getElementById("editPlate").value,
+        type: document.getElementById("editType").value,
+        owner: document.getElementById("editOwner").value,
+        phone: document.getElementById("editPhone").value,
+        washer_id: document.getElementById("editWasher").value
+    };
+
+    try {
+        const res = await fetch(`${API_BASE}/vehicles/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+        });
+
+        const data = await res.json();
+
+        showNotification(data.message || 'Vehículo actualizado correctamente', "success");
+        closeEditModal();
+
+        fetchVehicles();
+    } catch (error) {
+        console.error(error);
+        showNotification("Error al guardar cambios", "error");
+    }
+}
+
+// =============================
+// FUNCIÓN ELIMINAR REAL
+// =============================
+window.deleteVehicle = async function (id) {
+    if (!confirm("¿Seguro que deseas eliminar este vehículo?")) return;
+
+    try {
+        const res = await fetch(`${API_BASE}/vehicles/${id}`, {
+            method: "DELETE",
+        });
+
+        const data = await res.json();
+
+        showNotification(data.message || "Vehículo eliminado", "success");
+
+        fetchVehicles(); // recargar tabla
+    } catch (error) {
+        console.error(error);
+        showNotification("Error al eliminar", "error");
     }
 }
 
@@ -419,7 +493,5 @@ function debounce(func, wait) {
 
 // Exportar funciones globalmente
 window.showVehicleHistory = showVehicleHistory;
-window.editVehicle = editVehicle;
-window.deleteVehicle = deleteVehicle;
 window.closeHistoryModal = closeHistoryModal;
 window.sortTable = sortTable;

@@ -1,6 +1,27 @@
 // admin/js/services.js
 var API_BASE = window.API_BASE || 'http://localhost:3000/api';
 
+// Función para mostrar notificaciones toast
+function showToast(message, type = 'success') {
+    const toast = document.createElement('div');
+
+    toast.className = `toast-notification toast-${type}`;
+    toast.innerHTML = `
+        <div class="flex items-center gap-3">
+            <span class="font-medium">${message}</span>
+        </div>
+    `;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => toast.classList.add('show'), 100);
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 2500);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const grid = document.querySelector('.services-grid');
     const newServiceBtn = document.querySelector('.new-service-btn');
@@ -117,6 +138,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         serviceModal.classList.add('hidden');
         fetchServices();
+
+        showToast(
+            editingServiceId ? 'Servicio actualizado correctamente' : 'Servicio creado correctamente',
+            'success'
+        );
     });
 
     // Editar servicio (abre el modal)
@@ -159,11 +185,15 @@ document.addEventListener('DOMContentLoaded', function() {
             await fetch(`${API_BASE}/services/${serviceToDelete}`, {
                 method: 'DELETE'
             });
-            console.log('✅ Servicio eliminado:', serviceToDelete);
+
             deleteServiceModal.classList.add('hidden');
-            fetchServices(); // recargar lista
+            fetchServices();
+
+            showToast('Servicio eliminado correctamente', 'success');
+
         } catch (error) {
-            console.error('💥 Error al eliminar servicio:', error);
+            console.error('Error al eliminar servicio:', error);
+            showToast('Error al eliminar servicio', 'error');
         } finally {
             serviceToDelete = null;
         }

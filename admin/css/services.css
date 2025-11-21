@@ -250,3 +250,32 @@ body {
         gap: 4px;
     }
 }
+
+/* =============================== */
+/*     TOAST 100% FIJO ARRIBA      */
+/* =============================== */
+
+.toast-notification {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+
+    background-color: #10b981 !important; /* VERDE */
+    color: #000000 !important; /* LETRA NEGRA */
+
+    padding: 14px 20px !important;
+    border-radius: 8px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+
+    z-index: 999999 !important; /* SOBRE TODO */
+
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.35s ease !important;
+}
+
+.toast-notification.show {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}

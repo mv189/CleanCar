@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../db');
 
-// ✅ Obtener todos los lavadores con estadísticas reales
+// ✅ GET — Obtener lavadores con vehículos lavados reales
 router.get('/', async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -11,10 +11,11 @@ router.get('/', async (req, res) => {
         w.name,
         w.active,
         w.created_at,
-        COALESCE(COUNT(DISTINCT v.id), 0) AS total_vehicles,
+        COALESCE(COUNT(v.id), 0) AS vehicles_washed,
         COALESCE(MAX(v.created_at), NULL) AS last_service
-      FROM washers AS w
-      LEFT JOIN vehicles AS v ON v.washer_id = w.id
+      FROM washers w
+      LEFT JOIN vehicles v 
+        ON v.washer_id = w.id
       GROUP BY w.id, w.name, w.active, w.created_at
       ORDER BY w.id DESC;
     `);
@@ -26,14 +27,22 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ✅ Crear un nuevo lavador
+// ======================================
+// ✅ POST — Crear lavador
+// ======================================
 router.post('/', async (req, res) => {
   try {
     const { name } = req.body;
+
+    if (!name || name.trim() === '') {
+      return res.status(400).json({ error: 'El nombre es obligatorio' });
+    }
+
     const [result] = await pool.query(
-      'INSERT INTO washers (name, active, vehicles_washed) VALUES (?, ?, ?)',
-      [name, 1, 0]
+      'INSERT INTO washers (name, active) VALUES (?, 1)',
+      [name]
     );
+
     res.json({ message: 'Lavador creado', id: result.insertId });
   } catch (error) {
     console.error('💥 Error al crear lavador:', error);
@@ -41,16 +50,22 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ✅ Editar o cambiar estado de un lavador
+// ======================================
+// ✅ PUT — Editar lavador
+// ======================================
 router.put('/:id', async (req, res) => {
   try {
     const { name, active } = req.body;
+
     const [result] = await pool.query(
       'UPDATE washers SET name = ?, active = ? WHERE id = ?',
       [name, active ?? 1, req.params.id]
     );
-    if (result.affectedRows === 0)
+
+    if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Lavador no encontrado' });
+    }
+
     res.json({ message: 'Lavador actualizado' });
   } catch (error) {
     console.error('💥 Error al actualizar lavador:', error);
@@ -58,15 +73,20 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// ✅ Eliminar lavador
+// ======================================
+// ✅ DELETE — Eliminar lavador
+// ======================================
 router.delete('/:id', async (req, res) => {
   try {
     const [result] = await pool.query(
       'DELETE FROM washers WHERE id = ?',
       [req.params.id]
     );
-    if (result.affectedRows === 0)
+
+    if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Lavador no encontrado' });
+    }
+
     res.json({ message: 'Lavador eliminado' });
   } catch (error) {
     console.error('💥 Error al eliminar lavador:', error);
