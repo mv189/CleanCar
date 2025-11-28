@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "CleanCar - Lavadero multiplataforma con Node.js, MySQL y Express",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "mysql2": "^3.14.5"

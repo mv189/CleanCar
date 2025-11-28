@@ -54,20 +54,12 @@ async function fetchVehicles() {
 
 function setupEventListeners() {
     const searchInput = document.getElementById('plate-search');
-    const filterBtn = document.getElementById('filter-btn');
-    const addVehicleBtn = document.getElementById('add-vehicle-btn');
 
     // Búsqueda en tiempo real
     searchInput.addEventListener('input', function() {
         appState.filters.search = this.value;
         debounce(filterAndRenderVehicles, 300)();
     });
-
-    // Botones principales
-    filterBtn.addEventListener('click', showAdvancedFilters);
-    addVehicleBtn.addEventListener('click', showAddVehicleForm);
-
-    // Cerrar modal al hacer clic fuera
     document.addEventListener('click', function(e) {
         if (e.target.id === 'history-modal') {
             closeHistoryModal();
@@ -351,15 +343,7 @@ window.deleteVehicle = async function (id) {
     }
 }
 
-function showAdvancedFilters() {
-    showNotification('Abriendo filtros avanzados...', 'info');
-    // Aquí iría la lógica para mostrar modal de filtros avanzados
-}
 
-function showAddVehicleForm() {
-    showNotification('Abriendo formulario de nuevo vehículo...', 'info');
-    // Aquí iría la lógica para mostrar modal de agregar vehículo
-}
 
 function filterAndRenderVehicles() {
     const searchTerm = appState.filters.search.toLowerCase();

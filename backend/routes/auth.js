@@ -1,8 +1,9 @@
 const express = require('express');
-const router = express.Router(); 
+const router = express.Router();
 const pool = require('../db');   
+const bcrypt = require("bcryptjs");
 
-// LOGIN de usuarios (admin / secretario)
+// LOGIN (admin / secretario)
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -11,9 +12,10 @@ router.post('/login', async (req, res) => {
   }
 
   try {
+    // Buscar usuario por username
     const [rows] = await pool.query(
-      'SELECT * FROM users WHERE username = ? AND password = ? AND active = 1',
-      [username, password]
+      'SELECT * FROM users WHERE username = ? AND active = 1',
+      [username]
     );
 
     if (rows.length === 0) {
@@ -21,11 +23,21 @@ router.post('/login', async (req, res) => {
     }
 
     const user = rows[0];
+
+    // Comparar contraseña usando bcrypt
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) {
+      return res.status(401).json({ success: false, error: 'Usuario o contraseña incorrectos' });
+    }
+
+    // Login correcto
     res.json({
       success: true,
-      role: user.role,  
+      role: user.role,
       name: user.name
     });
+
   } catch (err) {
     console.error('Error en login:', err);
     res.status(500).json({ success: false, error: 'Error interno del servidor' });

@@ -2,8 +2,8 @@
 
 /* Variables CSS personalizadas */
 :root {
-    --primary-blue: #2563eb;
-    --primary-blue-dark: #1d4ed8;
+    --primary-blue: #4c9fef;
+    --primary-blue-dark: #4c9fef;
     --primary-blue-light: #dbeafe;
     --success-green: #10b981;
     --success-green-light: #dcfce7;
@@ -133,8 +133,8 @@ body {
 }
 
 .visits-badge.very-high-visits {
-    background: linear-gradient(135deg, #fbbf24, #f59e0b);
-    color: white;
+    background: linear-gradient(135deg, #f59e0b, #f59e0b);
+    color: black;
 }
 
 /* Avatar del vehículo */
@@ -463,7 +463,7 @@ button:focus {
 
 /* Gradientes de fondo */
 .gradient-bg {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #4c9fef 0%, #764ba2 100%);
 }
 
 .gradient-bg-subtle {

@@ -7,12 +7,55 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: #f9fafb;
-    color: #111827;
+    color: #000000;
+}
+
+/* Título del sistema */
+.system-title {
+    background-color: #4c9fef;
+    color: black;
+    padding: 12px 25px;
+    font-size: 22px;
+    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: 52px;
+    display: flex;
+    align-items: center;
+}
+
+/* Botón de cerrar sesión en el header */
+.logout-button-header {
+    position: fixed;
+    top: 10px;
+    right: 15px;
+    background: #ef4444;
+    border: none;
+    color: black;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 12px;
+    font-weight: 500;
+    z-index: 101;
+    white-space: nowrap;
+}
+
+.logout-button-header:hover {
+    background: #dc2626;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .dashboard-container {
     display: flex;
     height: 100vh;
+    padding-top: 52px;
 }
 
 /* Sidebar Styles */
@@ -38,7 +81,7 @@ body {
 .logo-icon {
     width: 40px;
     height: 40px;
-    background: #2563eb;
+    background: #4c9fef;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -83,11 +126,11 @@ body {
 
 .nav-button:hover {
     background: #f3f4f6;
-    color: #2563eb;
+    color: #4c9fef;
 }
 
 .nav-button.active {
-    background: #2563eb;
+    background: #4c9fef;
     color: white;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
 }
@@ -103,11 +146,11 @@ body {
     border-radius: 9999px;
     font-size: 12px;
     background: #dbeafe;
-    color: #2563eb;
+    color: #4c9fef;
 }
 
 .nav-button.active .nav-count {
-    background: #1e40af;
+    background: #4c9fef;
     color: white;
 }
 
@@ -138,7 +181,7 @@ body {
 
 .service-more {
     font-size: 12px;
-    color: #2563eb;
+    color: #4c9fef;
 }
 
 .user-info {
@@ -216,12 +259,12 @@ body {
 }
 
 .btn-primary {
-    background: #2563eb;
+    background: #4c9fef;
     color: white;
 }
 
 .btn-primary:hover {
-    background: #1d4ed8;
+    background: #4c9fef;
 }
 
 .btn-success {
@@ -274,7 +317,7 @@ body {
 
 .form-input:focus, .form-select:focus {
     outline: none;
-    border-color: #2563eb;
+    border-color: #4c9fef;
     box-shadow: 0 0 0 3px rgb(37 99 235 / 0.1);
 }
 
@@ -333,6 +376,89 @@ body {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 16px;
+}
+
+/* Modal Logout Styles */
+.logout-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+
+.logout-modal-content {
+    background: white;
+    border-radius: 14px;
+    padding: 28px;
+    width: 360px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    animation: modalFade 0.25s ease-out;
+}
+
+.logout-modal-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+.logout-modal-text {
+    margin-top: 10px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.logout-modal-buttons {
+    margin-top: 26px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+}
+
+.logout-btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.logout-btn.cancel {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #d1d5db;
+}
+
+.logout-btn.cancel:hover {
+    background: #e5e7eb;
+}
+
+.logout-btn.danger {
+    background: #ef4444;
+    color: white;
+}
+
+.logout-btn.danger:hover {
+    background: #dc2626;
+}
+
+@keyframes modalFade {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Utility classes */
@@ -402,4 +528,85 @@ body {
 
 .hidden {
     display: none;
+}
+
+/* Botón de cerrar sesión antiguo (ya no se usa en el sidebar) */
+.logout-button {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background: #ef4444;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.logout-button i {
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .system-title {
+        font-size: 16px;
+        padding: 10px 15px;
+        height: 48px;
+    }
+
+    .logout-button-header {
+        font-size: 11px;
+        padding: 6px 10px;
+        top: 12px;
+        right: 10px;
+    }
+
+    .dashboard-container {
+        padding-top: 48px;
+    }
+
+    .sidebar {
+        width: 100%;
+        position: fixed;
+        top: 48px;
+        left: -100%;
+        z-index: 50;
+        transition: left 0.3s ease;
+        height: calc(100vh - 48px);
+    }
+    
+    .sidebar.open {
+        left: 0;
+    }
+    
+    .main-content {
+        width: 100%;
+    }
+    
+    .logout-modal-content {
+        width: 90%;
+        max-width: 340px;
+        padding: 24px;
+    }
+    
+    .logout-modal-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .logout-btn {
+        width: 100%;
+    }
 }

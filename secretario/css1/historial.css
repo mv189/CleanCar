@@ -76,7 +76,7 @@
 /* Loading animation */
 .loading-spinner {
     border: 2px solid #f3f4f6;
-    border-top: 2px solid #3b82f6;
+    border-top: 2px solid #4c9fef;
     border-radius: 50%;
     width: 20px;
     height: 20px;
@@ -107,7 +107,7 @@
     padding: 1rem;
     background: #f8fafc;
     border-radius: 8px;
-    border-left: 4px solid #3b82f6;
+    border-left: 4px solid #4c9fef;
 }
 
 .detail-label {
@@ -136,7 +136,7 @@
     top: 0;
     bottom: 0;
     width: 2px;
-    background: linear-gradient(to bottom, #3b82f6, #06b6d4);
+    background: linear-gradient(to bottom, #4c9fef, #4c9fef);
 }
 
 .timeline-item {
@@ -156,10 +156,10 @@
     top: 20px;
     width: 12px;
     height: 12px;
-    background: #3b82f6;
+    background: #4c9fef;
     border-radius: 50%;
     border: 3px solid white;
-    box-shadow: 0 0 0 3px #3b82f6;
+    box-shadow: 0 0 0 3px #4c9fef;
 }
 
 /* No results animation */

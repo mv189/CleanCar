@@ -32,7 +32,7 @@ body {
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background-color: #3b82f6;
+    background-color: #4c9fef;
     color: white;
     border: none;
     border-radius: 8px;
@@ -43,7 +43,7 @@ body {
 }
 
 .new-washer-btn:hover {
-    background-color: #2563eb;
+    background-color: #4c9fef;
 }
 
 /* Table Container */
@@ -85,7 +85,7 @@ body {
 }
 
 .search-input:focus {
-    border-color: #3b82f6;
+    border-color: #4c9fef;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -100,7 +100,7 @@ body {
 }
 
 .status-filter:focus {
-    border-color: #3b82f6;
+    border-color: #4c9fef;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -209,7 +209,7 @@ body {
 }
 
 .action-btn.edit {
-    color: #3b82f6;
+    color: #4c9fef;
     background-color: transparent;
 }
 
@@ -327,7 +327,7 @@ body {
 }
 
 .form-group input:focus {
-    border-color: #3b82f6;
+    border-color: #4c9fef;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -357,7 +357,7 @@ body {
 .btn-submit {
     padding: 8px 16px;
     border: none;
-    background-color: #3b82f6;
+    background-color: #4c9fef;
     color: white;
     border-radius: 8px;
     cursor: pointer;
@@ -367,7 +367,7 @@ body {
 }
 
 .btn-submit:hover {
-    background-color: #2563eb;
+    background-color: #4c9fef;
 }
 
 /* Toast Notification */
@@ -394,7 +394,7 @@ body {
 }
 
 .toast.info {
-    background-color: #3b82f6;
+    background-color: #4c9fef;
 }
 
 @keyframes slideIn {

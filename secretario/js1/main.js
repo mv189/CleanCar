@@ -144,4 +144,44 @@ window.AppData = {
 // Initialize dashboard when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     new Dashboard();
+    
+    // Evitar que el navegador vuelva a la página anterior
+    history.pushState(null, "", window.location.href);
+    
+    // Configurar modal de logout
+    const logoutModal = document.getElementById("logoutModal");
+    const confirmLogout = document.getElementById("confirmLogout");
+    const cancelLogout = document.getElementById("cancelLogout");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // Abrir modal desde botón principal
+    logoutBtn.addEventListener("click", () => {
+        logoutModal.classList.remove("hidden");
+    });
+
+    // Cerrar sesión confirmada
+    confirmLogout.addEventListener("click", () => {
+        window.location.href = "/";
+    });
+
+    // Cancelar cierre
+    cancelLogout.addEventListener("click", () => {
+        logoutModal.classList.add("hidden");
+    });
+
+    // Cerrar si hace click fuera de la caja
+    logoutModal.addEventListener("click", (e) => {
+        if (e.target === logoutModal) {
+            logoutModal.classList.add("hidden");
+        }
+    });
+    
+    // Detectar botón atrás del navegador
+    window.onpopstate = function () {
+        // En vez de volver, mostramos el modal para cerra sesión
+        logoutModal.classList.remove("hidden");
+
+        // Volvemos a empujar el estado para que no retroceda realmente
+        history.pushState(null, "", window.location.href);
+    };
 });

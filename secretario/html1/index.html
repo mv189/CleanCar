@@ -17,6 +17,14 @@
     ">
 </head>
 <body>
+    <!-- Título del sistema -->
+    <div class="system-title">
+        Quili Wash - Panel Secretario
+        <button class="logout-button-header" id="logoutBtn" title="Cerrar sesión">
+            Cerrar Sesión
+        </button>
+    </div>
+
     <div class="dashboard-container">
         <!-- Sidebar -->
         <div class="sidebar">
@@ -26,7 +34,7 @@
                         <i class="fas fa-car"></i>
                     </div>
                     <div class="logo-text">
-                        <h1>Clean Car</h1>
+                        <h1>Quili Wash</h1>
                         <p>Panel Secretario</p>
                     </div>
                 </div>
@@ -48,7 +56,7 @@
                 </button>
             </nav>
 
-            <!-- User info -->
+            <!-- User info (sin botón de logout) -->
             <div class="user-info">
                 <div class="user-avatar">S</div>
                 <div class="user-details">
@@ -61,6 +69,20 @@
         <div class="main-content">
             <div class="content-wrapper" id="contentWrapper">
                 <!-- El contenido se cargará dinámicamente aquí -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cerrar Sesión -->
+    <div id="logoutModal" class="logout-modal hidden">
+        <div class="logout-modal-content">
+            <h3 class="logout-modal-title">¿Cerrar sesión?</h3>
+            <p class="logout-modal-text">
+                Esta acción cerrará tu sesión actual.
+            </p>
+            <div class="logout-modal-buttons">
+                <button id="cancelLogout" class="logout-btn cancel">Cancelar</button>
+                <button id="confirmLogout" class="logout-btn danger">Cerrar sesión</button>
             </div>
         </div>
     </div>

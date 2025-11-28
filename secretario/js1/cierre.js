@@ -253,10 +253,6 @@ function updateFilterCounts() {
     const completedCount = filteredTransactions.filter(t => t.status === 'Completado').length;
     const pendingCount = filteredTransactions.filter(t => t.status === 'En proceso').length;
     
-    // Actualizar textos de botones si quisieras mostrar conteos
-    // document.getElementById('filter-all').textContent = `Todas (${allCount})`;
-    // document.getElementById('filter-completed').textContent = `Completadas (${completedCount})`;
-    // document.getElementById('filter-pending').textContent = `En Proceso (${pendingCount})`;
 }
 
 function getPaymentMethodIcon(paymentMethod) {
@@ -440,7 +436,7 @@ function printReport() {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>Reporte de Cierre - Clean Car</title>
+            <title>Reporte de Cierre - Quili Wash</title>
             <style>
                 body { font-family: Arial, sans-serif; margin: 20px; }
                 .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 10px; }
@@ -456,7 +452,7 @@ function printReport() {
         </head>
         <body>
             <div class="header">
-                <h1>Clean Car - Reporte de Cierre</h1>
+                <h1>Quili Wash - Reporte de Cierre</h1>
                 <p>${currentDate}</p>
             </div>
             
@@ -484,7 +480,7 @@ function printReport() {
             
             <div class="footer">
                 <p>Reporte generado automáticamente el ${new Date().toLocaleString('es-CO')}</p>
-                <p>Sistema de Gestión Clean Car</p>
+                <p>Sistema de Gestión Quili Wash</p>
             </div>
         </body>
         </html>

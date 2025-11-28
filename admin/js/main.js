@@ -1,9 +1,8 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     const navButtons = document.querySelectorAll('.nav-button');
     const contentFrame = document.getElementById('contentFrame');
     
-    // de páginas
+    // Mapeo de páginas
     const pageMapping = {
         'dashboard': '../html/dashboard.html',
         'users': '../html/users.html',
@@ -63,4 +62,17 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     console.log('Navegación principal inicializada');
+});
+
+// Cerrar sesión
+document.addEventListener('DOMContentLoaded', function() {
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function() {
+            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                window.location.href = '/';
+            }
+        });
+    }
 });

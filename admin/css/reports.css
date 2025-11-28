@@ -23,7 +23,7 @@ body {
 .reports-header h1 {
     font-size: 32px;
     font-weight: bold;
-    color: #111827;
+    color: #000000;
     margin: 0;
 }
 
@@ -43,7 +43,7 @@ body {
 }
 
 .month-filter:focus {
-    border-color: #3b82f6;
+    border-color: #4c9fef;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 

@@ -522,12 +522,7 @@ function clearForm() {
     }
   });
   
-  // Resetear descuento
-  const discountEl = $('discount');
-  if (discountEl) {
-    discountEl.value = '0';
-  }
-  
+ 
   // Resetear selects
   const typeEl = $('type');
   const washerEl = $('washer');

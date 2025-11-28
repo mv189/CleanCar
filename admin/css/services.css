@@ -23,7 +23,7 @@ body {
 .services-header h1 {
     font-size: 32px;
     font-weight: bold;
-    color: #111827;
+    color: #000000;
     margin: 0;
 }
 
@@ -32,7 +32,7 @@ body {
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background-color: #3b82f6;
+    background-color: #4c9fef;
     color: white;
     border: none;
     border-radius: 8px;
@@ -43,7 +43,7 @@ body {
 }
 
 .new-service-btn:hover {
-    background-color: #2563eb;
+    background-color: #4c9fef;
 }
 
 /* Services Grid */
@@ -143,7 +143,7 @@ body {
     justify-content: center;
     gap: 8px;
     padding: 8px 12px;
-    color: #3b82f6;
+    color: #4c9fef;
     background-color: #eff6ff;
     border: none;
     border-radius: 8px;

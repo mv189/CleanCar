@@ -64,12 +64,12 @@
 }
 
 .service-item input[type="checkbox"]:hover {
-    border-color: #3b82f6;
+    border-color: #4c9fef;
 }
 
 .service-item input[type="checkbox"]:checked {
-    background-color: #3b82f6;
-    border-color: #3b82f6;
+    background-color: #4c9fef;
+    border-color: #4c9fef;
 }
 
 .service-item input[type="checkbox"]:checked::after {
@@ -105,7 +105,7 @@
 
 /* Animación para servicios seleccionados */
 .service-item input[type="checkbox"]:checked + label {
-    color: #3b82f6;
+    color: #4c9fef;
 }
 
 /* Form validation styles */
@@ -168,8 +168,8 @@ button:active {
 
 #discount:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: #4c9fef;
+    box-shadow: 0 0 0 3px rgba(76, 159, 239, 0.1);
 }
 
 /* Services container spacing */
@@ -233,8 +233,8 @@ button:active {
 
 /* Estados adicionales para elementos interactivos */
 .service-item.selected {
-    background-color: #eff6ff;
-    border-color: #3b82f6;
+    background-color: hsl(0, 0%, 0%);
+    border-color: #4c9fef;
 }
 
 /* Animaciones suaves para cambios de estado */
@@ -246,6 +246,6 @@ button:active {
 
 /* Focus states mejorados */
 .service-item:focus-within {
-    outline: 2px solid #3b82f6;
+    outline: 2px solid #4c9fef;
     outline-offset: 2px;
 }
