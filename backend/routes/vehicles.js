@@ -191,9 +191,7 @@ router.get('/search', async (req, res) => {
   }
 });
 
-// ===============================
-// NUEVO: EDITAR VEHÍCULO (PUT)
-// ===============================
+// EDITAR VEHÍCULO (PUT)
 router.put('/:id', async (req, res) => {
   try {
     const { plate, type, owner, phone, washer_id } = req.body;
@@ -219,7 +217,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// NUEVO: ELIMINAR VEHÍCULO (DELETE)
+// ELIMINAR VEHÍCULO (DELETE)
 router.delete('/:id', async (req, res) => {
   try {
     const [result] = await pool.query(
@@ -234,6 +232,57 @@ router.delete('/:id', async (req, res) => {
   } catch (error) {
     console.error('Error eliminando vehículo:', error);
     res.status(500).json({ error: error.message });
+  }
+});
+
+// ===============================
+// HISTORIAL POR PLACA (NUEVO) ✅
+// ===============================
+router.get('/history/:plate', async (req, res) => {
+  try {
+    const plate = req.params.plate.toUpperCase();
+
+    // 1. Obtener datos básicos del vehículo
+    const [vehicleRows] = await pool.query(
+      'SELECT * FROM vehicles WHERE plate = ?',
+      [plate]
+    );
+
+    if (vehicleRows.length === 0) {
+      return res.json({
+        vehicle: { 
+          plate,
+          owner: "No registrado",
+          type: "N/A",
+        },
+        history: []
+      });
+    }
+
+    const vehicle = vehicleRows[0];
+
+    // 2. Obtener historial de transacciones del vehículo (ARREGLADO)
+    const [history] = await pool.query(`
+      SELECT 
+        t.id,
+        t.total,
+        t.status,
+        t.created_at AS date,
+        GROUP_CONCAT(s.name) AS services,
+        t.washer AS washer
+      FROM transactions t
+      LEFT JOIN transaction_services ts ON t.id = ts.transaction_id
+      LEFT JOIN services s ON ts.service_id = s.id
+      WHERE t.vehicle_id = ?
+      GROUP BY t.id
+      ORDER BY t.created_at DESC
+    `, [vehicle.id]);
+
+    res.json({ vehicle, history });
+
+  } catch (error) {
+    console.error('Error al obtener historial:', error);
+    res.status(500).json({ error: 'Error al obtener historial del vehículo' });
   }
 });
 

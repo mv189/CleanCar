@@ -233,8 +233,9 @@ button:active {
 
 /* Estados adicionales para elementos interactivos */
 .service-item.selected {
-    background-color: hsl(0, 0%, 0%);
+    background-color: #eff6ff;
     border-color: #4c9fef;
+    box-shadow: 0 0 0 2px rgba(76, 159, 239, 0.1);
 }
 
 /* Animaciones suaves para cambios de estado */
