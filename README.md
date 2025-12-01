@@ -22,7 +22,7 @@ Integración completa para registrar transacciones, servicios y estadísticas.
 Aplicación de escritorio con Electron
 Permite ejecutar el sistema localmente con una interfaz moderna.
 
-🧩 Estructura del proyecto
+Estructura del proyecto
 CleanCar/
 │
 ├── admin/                 # Panel administrativo
@@ -45,7 +45,6 @@ CleanCar/
 │   ├── db.js              # Conexión a MySQL
 │   └── server.js          # Servidor principal Express
 │
-├── main.js                # Archivo principal de Electron
 ├── package.json           # Dependencias y scripts del proyecto
 └── clean_car.sql          # Script de base de datos
 
@@ -53,8 +52,7 @@ CleanCar/
 
 Clona el repositorio:
 
-git clone https://github.com/TuUsuario/CleanCar.git
-cd CleanCar
+
 
 Instala las dependencias:
 npm install
@@ -98,7 +96,9 @@ Express.js	Framework web para API REST
 MySQL	Base de datos relacional
 HTML5 / CSS3 / JS	Frontend tradicional con vistas separadas
 
-Jean carlos campo y Maria victoria carabali 
+Jean carlos campo 
+Maria victoria carabali 
+Stefany yotengo
 Desarrolladores backend y frontend— Proyecto académico y empresarial
 
 📍 Colombia
