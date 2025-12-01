@@ -79,15 +79,16 @@ body {
 }
 
 .logo-icon {
-    width: 40px;
-    height: 40px;
-    background: #4c9fef;
-    border-radius: 12px;
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #4c9fef 0%, #4c9fef 100%);
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-size: 20px;
+    font-size: 26px;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(76, 159, 239, 0.45);
 }
 
 .logo-text h1 {

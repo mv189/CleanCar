@@ -99,13 +99,38 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Filtro cambiado:', this.value);
         });
     }
-    // 4. Exportar datos (no implementado)
-    const exportBtn = document.querySelector('.export-btn');
-    if (exportBtn) {
-        exportBtn.addEventListener('click', function() {
-            alert('Función de exportación no implementada en este demo');
-        });
-    }
 
     console.log('Dashboard inicializado correctamente');
+});
+
+// ===============================
+// 4. Función Exportar PDF
+// ===============================
+document.addEventListener("DOMContentLoaded", () => {
+    const exportButton = document.getElementById("exportButton");
+
+    if (exportButton) {
+        exportButton.addEventListener("click", async () => {
+
+            const dashboard = document.querySelector(".content-wrapper"); // Contenedor principal del dashboard
+
+            // Convertir a imagen
+            const canvas = await html2canvas(dashboard, { scale: 2 });
+            const imgData = canvas.toDataURL("image/png");
+
+            // Crear PDF
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF("p", "mm", "a4");
+
+            // Medidas
+            const pageWidth = 210;
+            const imgWidth = pageWidth;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+            pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+
+            // Descargar
+            pdf.save("dashboard.pdf");
+        });
+    }
 });

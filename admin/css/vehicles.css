@@ -1,4 +1,4 @@
-/* css/vehicles.css 
+/* css/vehicles.css */
 
 /* Variables CSS personalizadas */
 :root {
@@ -35,6 +35,18 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height: 1.6;
     color: var(--gray-700);
+}
+
+/* Estilos de validación */
+.input-error {
+    font-size: 13px;
+    color: #dc2626;
+    margin-top: 4px;
+}
+
+.invalid {
+    border: 1.5px solid #dc2626 !important;
+    box-shadow: 0 0 0 1px rgba(220, 38, 38, 0.3);
 }
 
 /* Animaciones personalizadas */

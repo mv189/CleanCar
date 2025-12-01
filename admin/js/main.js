@@ -66,13 +66,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Cerrar sesión
 document.addEventListener('DOMContentLoaded', function() {
+    const logoutModal = document.getElementById('logoutModal');
+    const cancelLogout = document.getElementById('cancelLogout');
+    const confirmLogout = document.getElementById('confirmLogout');
     const logoutBtn = document.getElementById('logoutBtn');
     
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', function() {
-            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-                window.location.href = '/';
-            }
-        });
-    }
+    // Abrir modal
+    logoutBtn.addEventListener('click', () => {
+        logoutModal.classList.remove('hidden');
+    });
+    
+    // Cerrar modal (cancelar)
+    cancelLogout.addEventListener('click', () => {
+        logoutModal.classList.add('hidden');
+    });
+    
+    // Confirmar cierre
+    confirmLogout.addEventListener('click', () => {
+        window.location.href = "/login/login.html";
+    });
+});
+
+// PREVENIR REGRESO CON FLECHA DEL NAVEGADOR (MISMO COMPORTAMIENTO DEL SECRETARIO)
+history.pushState(null, "", location.href);
+
+window.addEventListener("popstate", function () {
+    const logoutModal = document.getElementById('logoutModal');
+    // Mostrar modal como en el secretario
+    logoutModal.classList.remove('hidden');
+
+    // Volver a bloquear hacia atrás
+    history.pushState(null, "", location.href);
 });

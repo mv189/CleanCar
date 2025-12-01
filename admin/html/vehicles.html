@@ -182,9 +182,12 @@
                             </label>
                             <input 
                                 id="editPlate"
+                                type="text"
                                 class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors uppercase"
-                                placeholder="ABC 123"
+                                placeholder="ABC123"
+                                maxlength="6"
                             />
+                            <p id="editPlateError" class="input-error"></p>
                         </div>
                         
                         <div>
@@ -196,8 +199,8 @@
                                 class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                             >
                                 <option value="carro">Carro</option>
-                                <option value="moto">Moto</option>
                                 <option value="camioneta">Camioneta</option>
+                                <option value="moto">Moto</option>
                             </select>
                         </div>
                     </div>
@@ -219,9 +222,12 @@
                         </label>
                         <input 
                             id="editPhone"
+                            type="text"
                             class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                            placeholder="+57 300 123 4567"
+                            placeholder="3001234567"
+                            maxlength="10"
                         />
+                        <p id="editPhoneError" class="input-error"></p>
                     </div>
                     
                     <div class="mb-6">
@@ -238,6 +244,7 @@
                     
                     <div class="flex gap-3">
                         <button 
+                            id="saveEditBtn"
                             onclick="saveVehicleEdit()" 
                             class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold flex items-center justify-center gap-2"
                         >
@@ -252,6 +259,29 @@
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal eliminar vehículo -->
+    <div id="delete-modal" class="fixed inset-0 hidden bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 shadow-xl w-[90%] max-w-sm animate__fadeIn">
+            <h2 class="text-xl font-bold text-gray-800 mb-2 text-center">¿Eliminar vehículo?</h2>
+
+            <p class="text-gray-600 text-center mb-6">
+                Esta acción no se puede deshacer.
+            </p>
+
+            <div class="flex justify-between gap-3">
+                <button id="cancelDeleteBtn"
+                    class="flex-1 bg-gray-200 text-gray-700 font-semibold py-2 rounded-lg hover:bg-gray-300">
+                    Cancelar
+                </button>
+
+                <button id="confirmDeleteBtn"
+                    class="flex-1 bg-red-600 text-white font-semibold py-2 rounded-lg hover:bg-red-700">
+                    Eliminar
+                </button>
             </div>
         </div>
     </div>

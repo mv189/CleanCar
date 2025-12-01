@@ -20,9 +20,6 @@ const appState = {
     }
 };
 
-// ============================================
-//       CARGA INICIAL
-// ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
     setupEventListeners();
@@ -30,9 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadWashers();
 });
 
-// ============================================
 // CARGAR LAVADORES
-// ============================================
 
 async function loadWashers() {
     try {
@@ -55,10 +50,8 @@ async function loadWashers() {
     }
 }
 
-// ============================================
-// OBTENER VEHÍCULOS
-// ============================================
 
+// OBTENER VEHÍCULOS
 async function fetchVehicles() {
     appState.loading = true;
     try {
@@ -79,9 +72,7 @@ async function fetchVehicles() {
     }
 }
 
-// ============================================
-//        EVENTOS
-// ============================================
+//EVENTOS
 
 function setupEventListeners() {
     const searchInput = document.getElementById('plate-search');
@@ -104,9 +95,7 @@ function setupEventListeners() {
     });
 }
 
-// ============================================
-//        ESTADÍSTICAS
-// ============================================
+//ESTADÍSTICAS
 
 function updateStats() {
     const totalVehicles = vehiclesData.length;
@@ -140,9 +129,8 @@ function animateValue(id, start, end, duration, isCurrency = false) {
     requestAnimationFrame(update);
 }
 
-// ============================================
-//        RENDERIZAR TABLA
-// ============================================
+//RENDERIZAR TABLA
+
 
 function renderVehiclesTable() {
     const tbody = document.getElementById('vehicles-tbody');
@@ -164,9 +152,8 @@ function renderVehiclesTable() {
     document.getElementById('vehicles-count').textContent = `${filteredVehicles.length} vehículos`;
 }
 
-// ============================================
-//      FILA DE VEHÍCULO (CORREGIDA FA)
-// ============================================
+// FILA DE VEHÍCULO 
+
 
 function createVehicleRow(vehicle, index) {
     const row = document.createElement('tr');
@@ -230,9 +217,7 @@ function createVehicleRow(vehicle, index) {
     return row;
 }
 
-// ============================================
-//      HISTORIAL (CORREGIDO ✅)
-// ============================================
+//  HISTORIAL 
 
 async function showVehicleHistory(plate) {
     try {
@@ -310,27 +295,132 @@ function closeHistoryModal() {
     document.body.style.overflow = '';
 }
 
-// ============================================
-//      EDITAR
-// ============================================
+// VALIDACIONES
+
+function setupValidations() {
+    const editPlate = document.getElementById("editPlate");
+    const editType = document.getElementById("editType");
+    const editPhone = document.getElementById("editPhone");
+
+    const plateError = document.getElementById("editPlateError");
+    const phoneError = document.getElementById("editPhoneError");
+
+    const saveBtn = document.getElementById("saveEditBtn");
+
+// VALIDACIÓN DE PLACA (IGUAL AL SECRETARIO)
+    function validatePlate() {
+        let plate = editPlate.value.toUpperCase().trim();
+        let type = editType.value;
+
+        editPlate.value = plate; // Forzar mayúsculas
+
+        let regexCarro = /^[A-Z]{3}[0-9]{3}$/;  // Carro
+        let regexMoto = /^[A-Z]{3}[0-9]{2}[A-Z]{1}$/;  // Moto ABC12A
+
+        let valid = false;
+
+        if (type === "moto") {
+            valid = regexMoto.test(plate);
+            if (!valid) {
+                plateError.textContent = "Formato para moto: LLLNNL (Ej: ABC12A)";
+                editPlate.classList.add("invalid");
+            } else {
+                plateError.textContent = "";
+                editPlate.classList.remove("invalid");
+            }
+        } else {
+            valid = regexCarro.test(plate);
+            if (!valid) {
+                plateError.textContent = "Carro/Camioneta: LLLNNN (Ej: ABC123)";
+                editPlate.classList.add("invalid");
+            } else {
+                plateError.textContent = "";
+                editPlate.classList.remove("invalid");
+            }
+        }
+
+        return valid;
+    }
+
+
+    // VALIDACIÓN DE TELÉFONO (IGUAL AL SECRETARIO)
+
+    function validatePhone() {
+        let phone = editPhone.value.trim();
+
+        let regex = /^3[0-9]{9}$/; // 10 dígitos, empieza por 3
+
+        if (!regex.test(phone)) {
+            phoneError.textContent = "Formato: 10 dígitos y debe empezar con 3 (Ej: 3001234567)";
+            editPhone.classList.add("invalid");
+            return false;
+        } else {
+            phoneError.textContent = "";
+            editPhone.classList.remove("invalid");
+            return true;
+        }
+    }
+
+
+// DESACTIVAR EL BOTÓN "GUARDAR CAMBIOS"
+    function validateForm() {
+        let valid =
+            validatePlate() &&
+            validatePhone();
+
+        saveBtn.disabled = !valid;
+        return valid;
+    }
+
+
+    // EVENTOS IGUALES AL de SECRETARIO
+ 
+    editPlate.addEventListener("input", validateForm);
+    editType.addEventListener("change", validateForm);
+    editPhone.addEventListener("input", validateForm);
+
+
+// VALIDAR ANTES DE GUARDAR
+
+    saveBtn.addEventListener("click", (e) => {
+        if (!validateForm()) {
+            e.preventDefault();
+            return;
+        }
+    });
+
+    validateForm();
+}
+
+
+//EDITAR
 
 window.editVehicle = function (vehicle) {
     document.getElementById("editId").value = vehicle.id;
-    document.getElementById("editPlate").value = vehicle.plate;
-    document.getElementById("editOwner").value = vehicle.owner;
-    document.getElementById("editType").value = vehicle.type;
-    document.getElementById("editPhone").value = vehicle.phone || '';
+    document.getElementById("editPlate").value = (vehicle.plate || "").toUpperCase();
+    document.getElementById("editOwner").value = vehicle.owner || '';
+    document.getElementById("editType").value = vehicle.type || 'carro';
+     document.getElementById("editPhone").value = (vehicle.phone || '').replace('+57', '');
     document.getElementById("editWasher").value = vehicle.washer_id || '';
 
     document.getElementById("edit-modal").classList.remove("hidden");
     document.body.style.overflow = 'hidden';
+
+    setupValidations(); 
 };
 
 window.saveVehicleEdit = async function () {
+
+    // DETENER SI HAY ERRORES
+    if (document.getElementById("saveEditBtn").disabled) {
+        showNotification("Corrige los campos antes de guardar", "error");
+        return;
+    }
+
     const id = document.getElementById("editId").value;
 
     const body = {
-        plate: document.getElementById("editPlate").value,
+        plate: document.getElementById("editPlate").value.toUpperCase(),
         type: document.getElementById("editType").value,
         owner: document.getElementById("editOwner").value,
         phone: document.getElementById("editPhone").value,
@@ -345,13 +435,19 @@ window.saveVehicleEdit = async function () {
         });
 
         const data = await res.json();
-        showNotification(data.message || 'Vehículo actualizado', "success");
+
+        if (!res.ok) {
+            showNotification(data.error || "Error al actualizar", "error");
+            return;
+        }
+
+        showNotification("Cambios guardados correctamente", "success");
         closeEditModal();
         fetchVehicles();
 
     } catch (error) {
         console.error(error);
-        showNotification("Error al guardar cambios", "error");
+        showNotification("Error al guardar", "error");
     }
 };
 
@@ -360,29 +456,50 @@ function closeEditModal() {
     document.body.style.overflow = '';
 }
 
-// ============================================
-//      ELIMINAR
-// ============================================
+// ELIMINAR 
 
-window.deleteVehicle = async function (id) {
-    if (!confirm("¿Seguro que deseas eliminar este vehículo?")) return;
+let vehicleToDelete = null;
+
+window.deleteVehicle = function(id) {
+    vehicleToDelete = id;
+    document.getElementById("delete-modal").classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+};
+
+// Botón cancelar
+document.getElementById("cancelDeleteBtn").addEventListener("click", () => {
+    vehicleToDelete = null;
+    document.getElementById("delete-modal").classList.add("hidden");
+    document.body.style.overflow = "";
+});
+
+// Botón eliminar
+document.getElementById("confirmDeleteBtn").addEventListener("click", async () => {
+
+    if (!vehicleToDelete) return;
 
     try {
-        const res = await fetch(`${API_BASE}/vehicles/${id}`, { method: "DELETE" });
+        const res = await fetch(`${API_BASE}/vehicles/${vehicleToDelete}`, {
+            method: "DELETE"
+        });
+
         const data = await res.json();
 
         showNotification(data.message || "Vehículo eliminado", "success");
-        fetchVehicles();
+
+        fetchVehicles(); // actualizar tabla
 
     } catch (error) {
         console.error(error);
         showNotification("Error al eliminar", "error");
     }
-};
 
-// ============================================
-//      FILTRO Y ORDEN
-// ============================================
+    // Cerrar modal
+    document.getElementById("delete-modal").classList.add("hidden");
+    document.body.style.overflow = "";
+});
+
+// FILTRO Y ORDEN
 
 function filterAndRenderVehicles() {
     const searchTerm = appState.filters.search.toLowerCase();
@@ -397,9 +514,7 @@ function filterAndRenderVehicles() {
     renderVehiclesTable();
 }
 
-// ============================================
-//      UTILIDADES
-// ============================================
+//UTILIDADES
 
 function formatDate(dateString) {
     if (!dateString) return 'N/A';
@@ -419,9 +534,7 @@ function getTimeAgo(dateString) {
     return `hace ${Math.floor(diff / 30)} meses`;
 }
 
-// ============================================
-//      NOTIFICACIONES (CON FONT AWESOME)
-// ============================================
+//NOTIFICACIONES (CON FONT AWESOME)
 
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
