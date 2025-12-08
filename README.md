@@ -1,104 +1,196 @@
-CleanCar es una aplicación multiplataforma desarrollada en Node.js, Express, MySQL y Electron, que permite gestionar las operaciones de un lavadero vehicular desde un panel administrativo y otro operativo.
-Incluye módulos para control de servicios, vehículos, lavadores, transacciones, reportes, estadísticas y autenticación.
+Quili Wash – Sistema de Gestión para Lavaderos de Vehículos
 
-🚀 Características principales
+Aplicación web diseñada para administrar de forma eficiente los procesos operativos y administrativos de un negocio de lavado de vehículos.
+Incluye módulos de registro, control financiero, historial de vehículos, gestión de servicios, reportes y asignación de lavadores.
 
-Panel de administrador
-Gestiona usuarios, servicios, reportes, vehículos y estadísticas.
-Incluye gráficas de ingresos diarios y semanales.
+👥 Equipo de Desarrollo
 
-Panel de secretario
-Permite registrar vehículos, asignar servicios, realizar cierres de caja y ver historial.
+Santiago Velasco Cobo – Full Stack Developer (Proyecto académico y empresarial)
 
-Autenticación segura
-Módulo de inicio de sesión con validación y control de acceso.
+📦 Tecnologías Utilizadas
+🖥️ Frontend
 
-API REST
-Construida con Express para conectar el frontend y el backend.
+HTML5 / CSS3 / JavaScript
 
-Base de datos MySQL
-Integración completa para registrar transacciones, servicios y estadísticas.
+Modo claro/oscuro integrado
 
-Aplicación de escritorio con Electron
-Permite ejecutar el sistema localmente con una interfaz moderna.
+Componentes UI personalizados (tarjetas, formularios, tablas)
 
-Estructura del proyecto
-CleanCar/
+Chart.js para gráficos (admin)
+
+⚙️ Backend
+
+Node.js + Express
+
+API REST modularizada
+
+🗄 Base de Datos
+
+MySQL
+
+Scripts SQL incluidos en clean_car.sql
+
+🧰 Herramientas
+
+Git + GitHub
+
+Postman (pruebas de API)
+
+VSCode
+
+XAMPP / WAMP (entorno MySQL)
+
+🌟 Características Principales
+🔧 Panel Administrador
+
+Dashboard con métricas (ingresos, servicios, vehículos atendidos)
+
+Gestión de lavadores
+
+Administración de servicios y precios
+
+Reportes financieros
+
+Historial de vehículos
+
+Modo claro/oscuro
+
+Exportación de datos
+
+🧾 Panel Secretario
+
+Registro rápido de vehículos
+
+Selección de servicios y cálculo de precio automático
+
+Asignación de lavadores
+
+Cierre de caja y reportes diarios
+
+Historial de clientes
+
+Notificaciones tipo toast
+
+Modo claro/oscuro sincronizado
+
+📊 API Backend
+
+CRUD de vehículos
+
+CRUD de servicios
+
+Control de transacciones
+
+Generación de reportes
+
+Autenticación simple
+
+📁 Estructura del Proyecto (formato elegante)
+CLEAN CAR /
 │
-├── admin/                 # Panel administrativo
-│   ├── css/               # Estilos del dashboard
-│   ├── html/              # Vistas (Dashboard, Vehículos, Servicios, etc.)
-│   └── js/                # Lógica del frontend (Chart.js, API calls)
+├── admin/                              # Panel administrativo
+│   ├── css/                             # Estilos del dashboard
+│   ├── html/                            # Vistas (Dashboard, Servicios, Vehículos)
+│   └── js/                              # Lógica frontend (gráficos, API calls)
 │
-├── secretario/            # Panel operativo (Secretario)
-│   ├── css1/              # Estilos del módulo
-│   ├── html1/             # Vistas del secretario
-│   └── js1/               # Scripts del módulo
+├── secretario/                          # Panel operativo del secretario
+│   ├── css1/                            # Estilos del módulo
+│   ├── html1/                           # Interfaces del secretario
+│   └── js1/                             # Scripts dinámicos del módulo
 │
-├── login/                 # Pantalla de inicio de sesión
+├── login/                               # Pantalla de inicio de sesión
 │   ├── css/
 │   ├── html/
 │   └── js/
 │
-├── backend/               # API y lógica de negocio
-│   ├── routes/            # Rutas (auth, services, transactions, stats, etc.)
-│   ├── db.js              # Conexión a MySQL
-│   └── server.js          # Servidor principal Express
+├── backend/                             # Lógica del servidor y la API
+│   ├── routes/                          # Rutas de API (auth, services, vehicles)
+│   ├── db.js                            # Conexión a MySQL
+│   └── server.js                        # Servidor Express principal
 │
-├── package.json           # Dependencias y scripts del proyecto
-└── clean_car.sql          # Script de base de datos
+├── clean_car.sql                         # Script de base de datos
+├── package.json                          # Dependencias y scripts
+└── README.md                             # Este archivo
 
-⚙️ Instalación y configuración
+🚀 Instalación y Configuración
+📌 Requisitos Previos
 
-Clona el repositorio:
+Node.js 16+
 
+MySQL 8+
 
+Git
 
-Instala las dependencias:
+Navegador moderno
+
+1️⃣ Clonar el repositorio
+git clone https://github.com/TU_USUARIO/TU_REPO.git
+cd TU_REPO
+
+2️⃣ Instalar dependencias
 npm install
-Crea la base de datos:
-Abre phpMyAdmin
-Importa el archivo clean_car.sql
-Configura la conexión en backend/db.js:
 
-const db = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'clean_car',
-  timezone: '-05:00'
-});
+3️⃣ Configurar la base de datos
+
+Crear la BD:
+
+CREATE DATABASE clean_car;
 
 
-Inicia el servidor:
-cd backend
-una vez dentro del backend: node server.js
+Importar:
 
-Accede desde el navegador:
-Login: http://localhost:3000/
+clean_car.sql
 
-Panel Admin: http://localhost:3000/admin
+4️⃣ Configurar variables de entorno
 
-Panel Secretario: http://localhost:3000/secretario
+Crear archivo .env:
 
-📊 Funcionalidades clave
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=clean_car
+PORT=3000
 
-Dashboard con estadísticas de ingresos diarios y semanales (Chart.js)
-Registro de vehículos y lavadores
-Gestión de servicios y transacciones
-Reportes financieros y de desempeño
-Cierres de caja automáticos
+5️⃣ Iniciar el servidor
+node backend/server.js
 
-Tecnologías utilizadas
-Tecnología	Descripción
-Node.js	Entorno de ejecución backend
-Express.js	Framework web para API REST
-MySQL	Base de datos relacional
-HTML5 / CSS3 / JS	Frontend tradicional con vistas separadas
 
-Jean carlos campo 
-Maria victoria carabali 
-Stefany yotengo
-Desarrolladores backend y frontend— Proyecto académico y empresarial
+Acceder a la app:
 
-📍 Colombia
+Admin: admin/html/dashboard.html
+
+Secretario: secretario/html1/index.html
+
+Login: login/login.html
+
+🔁 Flujo de trabajo con Git (estilo profesional)
+
+Clonar:
+
+git clone https://github.com/TU_USUARIO/TU_REPO.git
+
+
+Crear una nueva rama:
+
+git checkout -b feature/nueva-funcionalidad
+
+
+Guardar cambios:
+
+git add .
+git commit -m "Descripción del cambio"
+git push origin feature/nueva-funcionalidad
+
+
+Crear Pull Request en GitHub.
+
+📌 Estado actual del proyecto
+
+✔ Panel Administrador funcional
+✔ Panel Secretario optimizado
+✔ Modo oscuro en ambos módulos
+✔ API REST estable
+✔ Base de datos estructurada
+✔ Cálculo automático de precios
+✔ Sistema de notificaciones (toast)
+✔ Sistema modular y escalable
