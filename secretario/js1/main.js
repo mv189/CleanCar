@@ -1,3 +1,30 @@
+// ============================
+// 🌙 Sistema de Modo Oscuro - SOLO MENÚ
+// ============================
+function applyTheme() {
+    const theme = localStorage.getItem('theme') || 'light';
+    document.body.classList.toggle('dark-menu', theme === 'dark');
+
+    const icon = document.querySelector('#themeToggle i');
+    if (icon) {
+        icon.classList = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyTheme();
+
+    const toggleBtn = document.getElementById('themeToggle');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            const current = localStorage.getItem('theme') || 'light';
+            const newTheme = current === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            applyTheme();
+        });
+    }
+});
+
 class Dashboard {
     constructor() {
         this.activeSection = 'register';

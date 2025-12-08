@@ -87,6 +87,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+const toggle = document.getElementById('darkToggle');
+// Cargar modo guardado
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark");
+  toggle.textContent = "☀️";
+}
+toggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  if (document.body.classList.contains("dark")) {
+    localStorage.setItem("theme", "dark");
+    toggle.textContent = "☀️";
+  } else {
+    localStorage.setItem("theme", "light");
+    toggle.textContent = "🌙";
+  }
+});
+
 // PREVENIR REGRESO CON FLECHA DEL NAVEGADOR (MISMO COMPORTAMIENTO DEL SECRETARIO)
 history.pushState(null, "", location.href);
 

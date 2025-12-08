@@ -1,3 +1,8 @@
+:root {
+    --color-primary: #4c9fef;
+    --color-primary-dark: #3b82f6;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -27,6 +32,27 @@ body {
     height: 52px;
     display: flex;
     align-items: center;
+}
+
+/* Botón de tema */
+.theme-toggle {
+    background: var(--color-primary);
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 18px;
+    transition: .3s;
+    position: fixed;
+    top: 10px;
+    right: 120px;
+    z-index: 101;
+}
+
+.theme-toggle:hover {
+    background: var(--color-primary-dark);
 }
 
 /* Botón de cerrar sesión en el header */
@@ -65,11 +91,13 @@ body {
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
     border-right: 1px solid #e5e7eb;
     position: relative;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .sidebar-header {
     padding: 24px;
     border-bottom: 1px solid #e5e7eb;
+    transition: border-color 0.3s ease;
 }
 
 .logo {
@@ -95,11 +123,13 @@ body {
     font-weight: 700;
     color: #111827;
     font-size: 16px;
+    transition: color 0.3s ease;
 }
 
 .logo-text p {
     font-size: 14px;
     color: #6b7280;
+    transition: color 0.3s ease;
 }
 
 .sidebar-nav {
@@ -197,6 +227,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .user-avatar {
@@ -215,6 +246,7 @@ body {
     font-weight: 500;
     color: #111827;
     font-size: 14px;
+    transition: color 0.3s ease;
 }
 
 .user-role {
@@ -401,18 +433,21 @@ body {
     text-align: center;
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
     animation: modalFade 0.25s ease-out;
+    transition: background-color 0.3s ease;
 }
 
 .logout-modal-title {
     font-size: 20px;
     font-weight: 700;
     color: #1f2937;
+    transition: color 0.3s ease;
 }
 
 .logout-modal-text {
     margin-top: 10px;
     color: #6b7280;
     font-size: 14px;
+    transition: color 0.3s ease;
 }
 
 .logout-modal-buttons {
@@ -567,6 +602,13 @@ body {
         height: 48px;
     }
 
+    .theme-toggle {
+        top: 12px;
+        right: 100px;
+        font-size: 16px;
+        padding: 6px 10px;
+    }
+
     .logout-button-header {
         font-size: 11px;
         padding: 6px 10px;
@@ -610,4 +652,74 @@ body {
     .logout-btn {
         width: 100%;
     }
+}
+
+/* ================================
+   🌙 DARK MODE — SOLO MENÚ (COLORES ADMIN)
+=================================== */
+.dark-menu .sidebar {
+    background-color: #1f2937;
+    border-color: #374151;
+}
+
+.dark-menu .sidebar-header {
+    border-color: #374151;
+}
+
+.dark-menu .logo-text h1 {
+    color: #f9fafb;
+}
+
+.dark-menu .logo-text p {
+    color: #9ca3af;
+}
+
+.dark-menu .nav-button {
+    color: #e5e7eb;
+}
+
+.dark-menu .nav-button:hover {
+    background-color: #374151;
+    color: #4c9fef;
+}
+
+.dark-menu .nav-button.active {
+    background-color: #4c9fef;
+    color: white;
+}
+
+.dark-menu .user-info {
+    background-color: #1f2937;
+    border-color: #374151;
+}
+
+.dark-menu .user-name {
+    color: #f9fafb;
+}
+
+/* Modal en modo oscuro */
+.dark-menu .logout-modal {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.dark-menu .logout-modal-content {
+    background-color: #1f2937;
+}
+
+.dark-menu .logout-modal-title {
+    color: #f9fafb;
+}
+
+.dark-menu .logout-modal-text {
+    color: #9ca3af;
+}
+
+.dark-menu .logout-btn.cancel {
+    background: #374151;
+    color: #e5e7eb;
+    border-color: #4b5563;
+}
+
+.dark-menu .logout-btn.cancel:hover {
+    background: #4b5563;
 }
