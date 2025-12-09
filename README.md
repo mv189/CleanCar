@@ -11,11 +11,8 @@ Santiago Velasco Cobo – Full Stack Developer (Proyecto académico y empresaria
 🖥️ Frontend
 
 HTML5 / CSS3 / JavaScript
-
 Modo claro/oscuro integrado
-
 Componentes UI personalizados (tarjetas, formularios, tablas)
-
 Chart.js para gráficos (admin)
 
 ⚙️ Backend

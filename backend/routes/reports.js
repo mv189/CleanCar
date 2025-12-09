@@ -47,7 +47,7 @@ router.get('/yearly/:year', async (req, res) => {
 });
 
 
-// 💰 Cierre de caja diario (idéntico al Dashboard del Admin)
+// 💰 Cierre de caja diario
 router.get('/cierre', async (req, res) => {
   try {
     const [stats] = await pool.query(`
@@ -62,13 +62,46 @@ router.get('/cierre', async (req, res) => {
       FROM transactions t
       LEFT JOIN transaction_services ts ON ts.transaction_id = t.id
       WHERE DATE(t.created_at) = CURDATE()
-      AND t.status = 'Completado';
+      AND t.status = 'Completado'
     `);
 
     res.json(stats[0]);
   } catch (error) {
     console.error('Error en /reports/cierre:', error);
     res.status(500).json({ error: 'Error al obtener el cierre de caja' });
+  }
+});
+
+
+// =====================================================
+// 📤 Exportar transacciones del mes (necesario para PDF)
+// =====================================================
+router.get('/month/:year/:month', async (req, res) => {
+  const { year, month } = req.params;
+
+  try {
+    const [rows] = await pool.query(`
+      SELECT 
+        t.id,
+        v.plate,
+        v.owner,
+        GROUP_CONCAT(s.name SEPARATOR ', ') AS services,
+        t.total,
+        t.payment_method,
+        t.created_at
+      FROM transactions t
+      INNER JOIN vehicles v ON v.id = t.vehicle_id
+      LEFT JOIN transaction_services ts ON ts.transaction_id = t.id
+      LEFT JOIN services s ON s.id = ts.service_id
+      WHERE YEAR(t.created_at) = ? AND MONTH(t.created_at) = ?
+      GROUP BY t.id
+      ORDER BY t.created_at DESC
+    `, [year, month]);
+
+    res.json(rows);
+  } catch (error) {
+    console.error('Error en /reports/month:', error);
+    res.status(500).json({ error: 'Error obteniendo datos para exportación' });
   }
 });
 

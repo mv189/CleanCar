@@ -1,6 +1,6 @@
-// ============================
-// 🌙 Sistema de Modo Oscuro - SOLO MENÚ
-// ============================
+
+// Sistema de Modo Oscuro - SOLO MENÚ
+
 function applyTheme() {
     const theme = localStorage.getItem('theme') || 'light';
     document.body.classList.toggle('dark-menu', theme === 'dark');
