@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../db');
 
-// ✅ GET — Obtener lavadores con vehículos lavados reales
+/* ============================================================
+   ✅ GET — Obtener lavadores (SOLO activos para el secretario)
+   ============================================================ */
 router.get('/', async (req, res) => {
   try {
     const [rows] = await pool.query(`
@@ -16,6 +18,7 @@ router.get('/', async (req, res) => {
       FROM washers w
       LEFT JOIN vehicles v 
         ON v.washer_id = w.id
+      WHERE w.active = 1   -- 🔥 SOLO LAVADORES ACTIVOS
       GROUP BY w.id, w.name, w.active, w.created_at
       ORDER BY w.id DESC;
     `);
@@ -27,9 +30,9 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ======================================
-// ✅ POST — Crear lavador
-// ======================================
+/* ============================================================
+   ✅ POST — Crear lavador
+   ============================================================ */
 router.post('/', async (req, res) => {
   try {
     const { name } = req.body;
@@ -50,9 +53,9 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ======================================
-// ✅ PUT — Editar lavador
-// ======================================
+/* ============================================================
+   ✅ PUT — Editar lavador (nombre o activo/inactivo)
+   ============================================================ */
 router.put('/:id', async (req, res) => {
   try {
     const { name, active } = req.body;
@@ -73,9 +76,9 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// ======================================
-// ✅ DELETE — Eliminar lavador
-// ======================================
+/* ============================================================
+   ✅ DELETE — Eliminar lavador
+   ============================================================ */
 router.delete('/:id', async (req, res) => {
   try {
     const [result] = await pool.query(
