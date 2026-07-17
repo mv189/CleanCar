@@ -4,7 +4,7 @@ Aplicación web diseñada para administrar de forma eficiente los procesos opera
 
 ## 👥 Equipo de Desarrollo
 
-- **Maria Victoria Carabali & Jean Caarlos Campo Garcia** 
+- **Maria Victoria Carabali & Jean Carlos Campo Garcia**
 
 ## 📦 Tecnologías Utilizadas
 
@@ -57,6 +57,7 @@ Aplicación web diseñada para administrar de forma eficiente los procesos opera
 
 ## 📁 Estructura del Proyecto
 
+\`\`\`
 CLEAN_CAR/
 │
 ├── admin/                    # Panel administrativo
@@ -82,6 +83,7 @@ CLEAN_CAR/
 ├── clean_car.sql             # Script de base de datos
 ├── package.json               # Dependencias y scripts
 └── README.md                  # Este archivo
+\`\`\`
 
 ## 🚀 Instalación y Configuración
 
@@ -93,18 +95,24 @@ CLEAN_CAR/
 
 ### 1️⃣ Clonar el repositorio
 
+\`\`\`bash
 git clone https://github.com/TU_USUARIO/TU_REPO.git
 cd TU_REPO
+\`\`\`
 
 ### 2️⃣ Instalar dependencias
 
+\`\`\`bash
 npm install
+\`\`\`
 
 ### 3️⃣ Configurar la base de datos
 
 Crear la BD:
 
+\`\`\`sql
 CREATE DATABASE clean_car;
+\`\`\`
 
 Importar el script `clean_car.sql`.
 
@@ -112,15 +120,19 @@ Importar el script `clean_car.sql`.
 
 Crear archivo `.env`:
 
+\`\`\`
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=
 DB_NAME=clean_car
 PORT=3000
+\`\`\`
 
 ### 5️⃣ Iniciar el servidor
 
+\`\`\`bash
 node backend/server.js
+\`\`\`
 
 Acceder a la app:
 - **Admin:** `admin/html/dashboard.html`
@@ -131,17 +143,23 @@ Acceder a la app:
 
 Clonar:
 
+\`\`\`bash
 git clone https://github.com/TU_USUARIO/TU_REPO.git
+\`\`\`
 
 Crear una nueva rama:
 
+\`\`\`bash
 git checkout -b feature/nueva-funcionalidad
+\`\`\`
 
 Guardar cambios:
 
+\`\`\`bash
 git add .
 git commit -m "Descripción del cambio"
 git push origin feature/nueva-funcionalidad
+\`\`\`
 
 Crear Pull Request en GitHub.
 
